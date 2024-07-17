@@ -1,0 +1,42 @@
+/* Dashboard.css */
+
+.container {
+    max-width: 100%;
+    margin: 20px auto;
+    padding: 0 20px;
+  }
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+    box-shadow: 0 0 20px rgba(62, 15, 232, 0.1);
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #0e0c0c; /* Add border to each cell */
+  }
+  
+  .table thead {
+    background-color: #1584f3;
+    color: white;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  
+  
