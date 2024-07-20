@@ -1,0 +1,61 @@
+.formViewContainar {
+    font-family: Arial, sans-serif;
+    margin: 5px 20px;
+    text-align: left;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    max-width: 100px;
+  }
+  
+  .info-table, .services-table, .hotels-table, .quotation-table, .tour-condition-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .info-table td, .services-table th, .services-table td, .hotels-table th, .hotels-table td, .quotation-table th, .quotation-table td, .tour-condition-table td {
+    border: 1px solid #000;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .info-table th, .services-table th, .hotels-table th, .quotation-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .services-table th, .services-table td {
+    text-align: center;
+  }
+  
+  .header h1, .header h2 {
+    margin: 0;
+  }
+  
+  .tour-condition-table td {
+    border: 1px solid #000;
+    padding: 1px;
+    text-align: left;
+  }
+  .conditions{
+    margin: 20px;
+    text-align: left;
+  }
+  
+  h3 {
+    background-color: #d40707;
+    padding: 5px;
+  }
+  
+  p {
+    border: 1px solid #ddd;
+    padding: 3px;
+    background-color: #f9f9f9;
+    margin: 0px;
+  }
+  
