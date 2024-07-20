@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from "react";
 import "./Tourform.css";
+import { useNavigate } from "react-router-dom";
 
-const Tourform = ({ addClient }) => {
+const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryForms }) => {
+  const navigator=useNavigate();
   const [formData, setFormData] = useState({
     adult: "",
     child: "",
@@ -29,8 +31,18 @@ const Tourform = ({ addClient }) => {
     const date = new Date(travelDate);
     const day = String(date.getDate()).padStart(2, "0");
     const monthNames = [
-      "Jan", "Feb", "Mar", "Apr", "May", "Jun",
-      "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
     ];
     const month = monthNames[date.getMonth()];
     const year = String(date.getFullYear()).slice(-2);
@@ -43,16 +55,34 @@ const Tourform = ({ addClient }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const uid = generateTravelString(formData.adult, formData.name, formData.tourStartDate);
+    const uid = generateTravelString(
+      formData.adult,
+      formData.name,
+      formData.tourStartDate
+    );
     const updatedFormData = { ...formData, uid };
-    
+    console.log("first", updatedFormData);
+
     try {
       // Simulating adding client to state
-      addClient(updatedFormData); // Assuming addClient is provided via props
+      addClient([...queryForms,updatedFormData]); // Assuming addClient is provided via props
       alert("Form submitted successfully");
       handleReset();
+      navigator('/query-dashboard')
     } catch (error) {
-      console.error('Error submitting form', error);
+      console.error("Error submitting form", error);
+      alert(`Failed to submit the form: ${error.message}`);
+    }
+  };
+
+  const handleUpdate = () => {
+    try {
+      updateQueryFormHandler(formData);
+      alert("Form submitted successfully");
+      handleReset();
+      navigator('/query-dashboard')
+    } catch (error) {
+      console.error("Error submitting form", error);
       alert(`Failed to submit the form: ${error.message}`);
     }
   };
@@ -77,8 +107,17 @@ const Tourform = ({ addClient }) => {
     });
   };
 
+  useEffect(() => {
+    if (editQeryFormData) {
+      setFormData(editQeryFormData);
+    }
+  }, [editQeryFormData]);
+
   return (
-    <form className="form" onSubmit={handleSubmit}>
+    <form
+      className="form"
+      onSubmit={editQeryFormData ? handleUpdate : handleSubmit}
+    >
       <h1 className="form-h1"> * Query Form *</h1>
       <div className="form-group">
         <label htmlFor="pax">Pax:</label>
@@ -235,7 +274,9 @@ const Tourform = ({ addClient }) => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="agentHandling">Agent Handling (Initials of employee):</label>
+        <label htmlFor="agentHandling">
+          Agent Handling (Initials of employee):
+        </label>
         <input
           type="text"
           id="agentHandling"
@@ -245,9 +286,15 @@ const Tourform = ({ addClient }) => {
         />
       </div>
       <div className="form-group">
-        <button type="submit" className="submit">
-          Submit
-        </button>
+        {editQeryFormData ? (
+          <button onClick={handleUpdate} className="submit">
+            Update
+          </button>
+        ) : (
+          <button type="submit" className="submit">
+            Submit
+          </button>
+        )}
         <button type="button" onClick={handleReset} className="reset">
           Reset
         </button>

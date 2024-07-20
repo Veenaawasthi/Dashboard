@@ -5,17 +5,19 @@ import Form from "./Component/Form";
 import Dashboard from "./Component/Dashboard2";
 import Tourform from "./Component/Tourform";
 import { FormView } from "./Component/FormView";
-import { dummyData } from "./Component/Service";
+import { dummyData, queryDashboardDummyData } from "./Component/Service";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
+import QeryDashboard from "./Component/QueryDashboard";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [forms, setForms] = useState([...dummyData]);
-  const [queryForms, setQueryForms] = useState([...dummyData]);
+  const [queryForms, setQueryForms] = useState([...queryDashboardDummyData]);
   const [itineraryData, setItineraryData] = useState(dummyData[0]);
   const [editFormData, setEditFormData] = useState({});
+  const [editQeryFormData, setEditQeryFormData] = useState({});
   const [formList, setFormList] = useState([]);
   const addForm = (form) => {
     const newForm = {
@@ -74,8 +76,11 @@ const App = () => {
   useEffect(() => {
     setFormList(forms);
   }, [forms]);
-
-  console.log('queryForm',queryForms)
+  const updateQueryFormHandler = (formDate) => {
+    const updateQueryFormData=formDate;
+    const filterQueryFormData=queryForms.filter((item)=>item.uid!==formDate.uid)
+    setQueryForms([...filterQueryFormData,updateQueryFormData])
+  };
 
   return (
     <BrowserRouter>
@@ -84,7 +89,7 @@ const App = () => {
           <button className="hamburger-menu" onClick={toggleSidebar}>
             <img
               src={"/home.png"}
-              alt='home'
+              alt="home"
               style={{
                 padding: "0.5px",
                 width: "24px",
@@ -109,10 +114,27 @@ const App = () => {
                 >
                   <img
                     src={"/dashboard.png"}
-                    alt='dashboard'
+                    alt="dashboard"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
                   <span style={{ fontSize: "17px" }}>Dashboard</span>
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/query-dashboard"
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    textDecoration: "none",
+                  }}
+                >
+                  <img
+                    src={"/dashboard.png"}
+                    alt="dashboard"
+                    style={{ padding: "0.5px", width: "24px", height: "24px" }}
+                  />
+                  <span style={{ fontSize: "17px" }}>Query Dashboard</span>
                 </Link>
               </li>
               <li>
@@ -126,7 +148,7 @@ const App = () => {
                 >
                   <img
                     src={"/flowsheet.png"}
-                    alt='flowsheet'
+                    alt="flowsheet"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
                   <span style={{ fontSize: "17px" }}>Query Form</span>
@@ -143,7 +165,7 @@ const App = () => {
                 >
                   <img
                     src={"/flowsheet.png"}
-                    alt='flowsheet'
+                    alt="flowsheet"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
                   <span style={{ fontsize: "17px" }}>Itinerary Form</span>
@@ -161,7 +183,7 @@ const App = () => {
                 >
                   <img
                     src={"/logout.png"}
-                    alt='logout'
+                    alt="logout"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
                   <span style={{ fontsize: "17px" }}>Logout</span>
@@ -194,13 +216,32 @@ const App = () => {
                     />
                   }
                 />
+                {/* /queryeditForm */}
+                <Route
+                  path="/queryeditForm"
+                  element={
+                    <Tourform
+                      editQeryFormData={editQeryFormData}
+                      updateQueryFormHandler={updateQueryFormHandler}
+                    />
+                  }
+                />
+                <Route
+                  path="/query-dashboard"
+                  element={
+                    <QeryDashboard
+                      forms={queryForms}
+                      setEditQeryFormData={setEditQeryFormData}
+                    />
+                  }
+                />
                 <Route
                   path="/view"
                   element={<FormView itineraryData={itineraryData} />}
                 />
                 <Route
                   path="/tourform"
-                  element={<Tourform addClient={setQueryForms} />}
+                  element={<Tourform addClient={setQueryForms} queryForms={queryForms} />}
                 />
               </>
             ) : (
