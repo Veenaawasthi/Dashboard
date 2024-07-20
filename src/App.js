@@ -173,7 +173,7 @@ const App = () => {
 
         <div className="main-content">
           <Routes>
-            <Route path="/login" element={<Login onLogin={handleLogin} />} />
+            <Route path="/" element={<Login onLogin={handleLogin} />} />
             {isLoggedIn ? (
               <>
                 <Route path="/form" element={<Form onSubmit={addForm} />} />
@@ -204,7 +204,7 @@ const App = () => {
                 />
               </>
             ) : (
-              <Route path="*" element={<Navigate to="/login" />} />
+              <Route path="*" element={<Navigate to="/" />} />
             )}
           </Routes>
         </div>
