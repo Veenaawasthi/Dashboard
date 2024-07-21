@@ -47,6 +47,7 @@ const QeryDashboard = ({ forms,setEditQeryFormData }) => {
               <th>UID</th>
               <th>Client Name</th>
               <th>Company Name</th>
+              <th>Status</th>
               <th>Query Date</th>
               <th>Tour Start Date</th>
               <th>Agent</th>
@@ -60,6 +61,7 @@ const QeryDashboard = ({ forms,setEditQeryFormData }) => {
                 <td>{form.uid}</td>
                 <td>{form.name}</td>
                 <td>{form.company}</td>
+                <td>{form.status}</td>
                 <td>{form.queryDate}</td>
                 <td>{form.tourStartDate}</td>
                 <td>{form.agentHandling}</td>
