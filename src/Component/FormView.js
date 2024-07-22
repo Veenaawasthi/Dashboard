@@ -71,7 +71,7 @@ export const FormView = ({ itineraryData }) => {
           </tr>
         </tbody>
       </table>
-      <h3>Services</h3>
+      <h3>Itinerary Details</h3>
       <table className="services-table">
         <thead>
           <tr>
@@ -82,6 +82,7 @@ export const FormView = ({ itineraryData }) => {
             <th>Duration</th>
             <th>Mode</th>
             <th>Meal</th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -94,6 +95,7 @@ export const FormView = ({ itineraryData }) => {
               <td>{service.duration}</td>
               <td>{service.mode}</td>
               <td>{service.meal}</td>
+              <td></td>
             </tr>
           ))}
         </tbody>

@@ -620,8 +620,8 @@ const Form = ({ formData, onSubmit }) => {
                     alt={"city"}
                     style={{
                       padding: "0.5px",
-                      width: "24px",
-                      height: "24px",
+                      width: "14px",
+                      height: "14px",
                       backgroundColor: "blue",
                     }}
                   />
@@ -639,7 +639,7 @@ const Form = ({ formData, onSubmit }) => {
                   <img
                     src={"/activity.png"}
                     alt={"activity"}
-                    style={{ padding: "0.5px", width: "24px", height: "24px" }}
+                    style={{ padding: "0.5px", width: "14px", height: "14px" }}
                   />
                   Service
                 </th>
@@ -655,7 +655,7 @@ const Form = ({ formData, onSubmit }) => {
                   <img
                     src={"/duration.png"}
                     alt={"duration"}
-                    style={{ padding: "0.5px", width: "24px", height: "24px" }}
+                    style={{ padding: "0.5px", width: "14px", height: "14px" }}
                   />
                   Duration
                 </th>
@@ -682,7 +682,7 @@ const Form = ({ formData, onSubmit }) => {
                   <img
                     src={"/meal.png"}
                     alt='meal'
-                    style={{ padding: "0.5px", width: "24px", height: "24px" }}
+                    style={{ padding: "0.5px", width: "14px", height: "14px" }}
                   />
                   Meal
                 </th>
