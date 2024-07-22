@@ -117,7 +117,7 @@ const App = () => {
                     alt="dashboard"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontSize: "17px" }}>Dashboard</span>
+                  <span style={{ fontSize: "15px" }}>Dashboard</span>
                 </Link>
               </li>
               <li>
@@ -134,7 +134,7 @@ const App = () => {
                     alt="dashboard"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontSize: "17px" }}>Query Dashboard</span>
+                  <span style={{ fontSize: "15px" }}>Query Dashboard</span>
                 </Link>
               </li>
               <li>
@@ -151,7 +151,7 @@ const App = () => {
                     alt="flowsheet"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontSize: "17px" }}>Query Form</span>
+                  <span style={{ fontSize: "15px" }}>Query Form</span>
                 </Link>
               </li>
               <li>
@@ -168,7 +168,7 @@ const App = () => {
                     alt="flowsheet"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontsize: "17px" }}>Itinerary Form</span>
+                  <span style={{ fontsize: "15px" }}>Itinerary Form</span>
                 </Link>
               </li>
               <li>
@@ -186,7 +186,7 @@ const App = () => {
                     alt="logout"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontsize: "17px" }}>Logout</span>
+                  <span style={{ fontsize: "15px" }}>Logout</span>
                 </Link>
               </li>
             </ul>
