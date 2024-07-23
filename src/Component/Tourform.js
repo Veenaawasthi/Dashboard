@@ -24,9 +24,9 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
     agentHandling: "",
   });
 
-  // Function to calculate duration in "7d8n" format
+  // Function to calculate duration in days
   const calculateDuration = (startDate, endDate) => {
-    if (!startDate || !endDate) return "";
+    if (!startDate || !endDate) return 0;
 
     const start = new Date(startDate);
     const end = new Date(endDate);
@@ -34,10 +34,7 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
     const diffTime = Math.abs(end - start);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-    const nights = Math.floor((diffDays - 1) / 7);
-    const days = (diffDays - 1) % 7 + 1;
-
-    return `${days}Days -${nights}Nights`;
+    return diffDays;
   };
 
   const handleChange = (event) => {
@@ -45,8 +42,8 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
     if (name === "tourStartDate" || name === "tourEndDate") {
       const startDate = name === "tourStartDate" ? value : formData.tourStartDate;
       const endDate = name === "tourEndDate" ? value : formData.tourEndDate;
-      const duration = calculateDuration(startDate, endDate);
-      setFormData({ ...formData, [name]: value, duration });
+      const days = calculateDuration(startDate, endDate);
+      setFormData({ ...formData, [name]: value, duration: days });
     } else {
       setFormData({ ...formData, [name]: value });
     }
@@ -248,7 +245,7 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
         </select>
       </div>
       <div className="form-group">
-        <label htmlFor="duration">Duration:</label>
+        <label htmlFor="duration">Duration (Days):</label>
         <input
           type="text"
           id="duration"
