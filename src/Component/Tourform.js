@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./Tourform.css";
 import { useNavigate } from "react-router-dom";
 
-const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryForms }) => {
-  const navigator=useNavigate();
+const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryForms }) => {
+  const navigator = useNavigate();
+
   const [formData, setFormData] = useState({
     adult: "",
     child: "",
@@ -18,39 +19,37 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryFor
     duration: "",
     queryDate: "",
     tourStartDate: "",
+    tourEndDate: "",
     uid: "",
     agentHandling: "",
   });
 
-  const generateTravelString = (adult, fullName, travelDate) => {
-    const initials = fullName
-      .split(" ")
-      .map((name) => name.charAt(0))
-      .join("")
-      .toUpperCase();
-    const date = new Date(travelDate);
-    const day = String(date.getDate()).padStart(2, "0");
-    const monthNames = [
-      "Jan",
-      "Feb",
-      "Mar",
-      "Apr",
-      "May",
-      "Jun",
-      "Jul",
-      "Aug",
-      "Sep",
-      "Oct",
-      "Nov",
-      "Dec",
-    ];
-    const month = monthNames[date.getMonth()];
-    const year = String(date.getFullYear()).slice(-2);
-    return `${String(adult).padStart(2, "0")}_${initials}${day}${month}${year}`;
+  // Function to calculate duration in "7d8n" format
+  const calculateDuration = (startDate, endDate) => {
+    if (!startDate || !endDate) return "";
+
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+
+    const diffTime = Math.abs(end - start);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+    const nights = Math.floor((diffDays - 1) / 7);
+    const days = (diffDays - 1) % 7 + 1;
+
+    return `${days}Days -${nights}Nights`;
   };
 
   const handleChange = (event) => {
-    setFormData({ ...formData, [event.target.name]: event.target.value });
+    const { name, value } = event.target;
+    if (name === "tourStartDate" || name === "tourEndDate") {
+      const startDate = name === "tourStartDate" ? value : formData.tourStartDate;
+      const endDate = name === "tourEndDate" ? value : formData.tourEndDate;
+      const duration = calculateDuration(startDate, endDate);
+      setFormData({ ...formData, [name]: value, duration });
+    } else {
+      setFormData({ ...formData, [name]: value });
+    }
   };
 
   const handleSubmit = async (event) => {
@@ -65,10 +64,10 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryFor
 
     try {
       // Simulating adding client to state
-      addClient([...queryForms,updatedFormData]); // Assuming addClient is provided via props
+      addClient([...queryForms, updatedFormData]); // Assuming addClient is provided via props
       alert("Form submitted successfully");
       handleReset();
-      navigator('/query-dashboard')
+      navigator('/query-dashboard');
     } catch (error) {
       console.error("Error submitting form", error);
       alert(`Failed to submit the form: ${error.message}`);
@@ -80,7 +79,7 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryFor
       updateQueryFormHandler(formData);
       alert("Form submitted successfully");
       handleReset();
-      navigator('/query-dashboard')
+      navigator('/query-dashboard');
     } catch (error) {
       console.error("Error submitting form", error);
       alert(`Failed to submit the form: ${error.message}`);
@@ -102,6 +101,7 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryFor
       duration: "",
       queryDate: "",
       tourStartDate: "",
+      tourEndDate: "",
       uid: "",
       agentHandling: "",
     });
@@ -112,6 +112,22 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryFor
       setFormData(editQeryFormData);
     }
   }, [editQeryFormData]);
+
+  const generateTravelString = (adult, fullName, travelDate) => {
+    const initials = fullName
+      .split(" ")
+      .map((name) => name.charAt(0))
+      .join("")
+      .toUpperCase();
+    const date = new Date(travelDate);
+    const day = String(date.getDate()).padStart(2, "0");
+    const monthNames = [
+      "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+    ];
+    const month = monthNames[date.getMonth()];
+    const year = String(date.getFullYear()).slice(-2);
+    return `${String(adult).padStart(2, "0")}_${initials}${day}${month}${year}`;
+  };
 
   return (
     <form
@@ -234,12 +250,12 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryFor
       <div className="form-group">
         <label htmlFor="duration">Duration:</label>
         <input
-          type="number"
+          type="text"
           id="duration"
           name="duration"
-          min="0"
           value={formData.duration}
           onChange={handleChange}
+          disabled
         />
       </div>
       <div className="form-group">
@@ -259,6 +275,16 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryFor
           id="tourStartDate"
           name="tourStartDate"
           value={formData.tourStartDate}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="tourEndDate">Tour end date:</label>
+        <input
+          type="date"
+          id="tourEndDate"
+          name="tourEndDate"
+          value={formData.tourEndDate}
           onChange={handleChange}
         />
       </div>
@@ -304,3 +330,4 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler,queryFor
 };
 
 export default Tourform;
+

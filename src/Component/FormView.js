@@ -75,13 +75,13 @@ export const FormView = ({ itineraryData }) => {
       <table className="services-table">
         <thead>
           <tr>
-            <th><img src={"/city.png"} alt={"city"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>City</th>
-            <th><img src={"/day.png"} alt={"day"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Day</th>
-            <th><img src={"/date.png"} alt={"date"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Date</th>
-            <th><img src={"/activity.png"} alt={"activity"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Service</th>
-            <th><img src={"/duration.png"} alt={"duration"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Duration</th>
-            <th><img src={"/mode.png"} alt={"mode"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Mode</th>
-            <th><img src={"/meal.png"} alt={"meal"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Meal</th>
+            <th><img src={"/city.png"} alt={"city"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>City</th>
+            <th><img src={"/day.png"} alt={"day"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Day</th>
+            <th><img src={"/date.png"} alt={"date"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Date</th>
+            <th><img src={"/activity.png"} alt={"activity"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Service</th>
+            <th><img src={"/duration.png"} alt={"duration"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Duration</th>
+            <th><img src={"/mode.png"} alt={"mode"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Mode</th>
+            <th><img src={"/meal.png"} alt={"meal"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Meal</th>
             <th></th>
           </tr>
         </thead>
