@@ -56,7 +56,7 @@ export const FormView = ({ itineraryData }) => {
             <td>{itineraryData.tourDate}</td>
           </tr>
           <tr>
-            <td>Flight</td>
+            <td>Flight<img src={"/takeoff.png"} alt={"takeoff"} style={{padding: "0.5px",width: "20px",height: "16px"}}/></td>
             <td>{itineraryData.flight}</td>
             <td>Date of QTN</td>
             <td>{itineraryData.dateOfQtn}</td>
@@ -71,17 +71,17 @@ export const FormView = ({ itineraryData }) => {
           </tr>
         </tbody>
       </table>
-      <h3>Itinerary Details</h3>
+      <h3><img src={"/itinerary.png"} alt={"itinerary"} style={{padding: "0.5px",width: "20px",height: "20px",backgroundColor: "blue",}}/>Itinerary Details</h3>
       <table className="services-table">
         <thead>
           <tr>
-            <th>City</th>
-            <th>Day</th>
-            <th>Date</th>
-            <th>Service</th>
-            <th>Duration</th>
-            <th>Mode</th>
-            <th>Meal</th>
+            <th><img src={"/city.png"} alt={"city"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>City</th>
+            <th><img src={"/day.png"} alt={"day"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Day</th>
+            <th><img src={"/date.png"} alt={"date"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Date</th>
+            <th><img src={"/activity.png"} alt={"activity"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Service</th>
+            <th><img src={"/duration.png"} alt={"duration"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Duration</th>
+            <th><img src={"/mode.png"} alt={"mode"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Mode</th>
+            <th><img src={"/meal.png"} alt={"meal"} style={{padding: "0.5px",width: "16px",height: "14px"}}/>Meal</th>
             <th></th>
           </tr>
         </thead>
@@ -100,7 +100,7 @@ export const FormView = ({ itineraryData }) => {
           ))}
         </tbody>
       </table>
-      <h3>Hotels Envisaged</h3>
+      <h3><img src={"/hotel.png"} alt={"hotel"} style={{padding: "0.5px",width: "24px",height: "20px",}}/>Hotels Envisaged</h3>
       <table className="hotels-table">
         <thead>
           <tr>

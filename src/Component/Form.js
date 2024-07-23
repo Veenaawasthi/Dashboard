@@ -593,6 +593,15 @@ const Form = ({ formData, onSubmit }) => {
                     textDecoration: "none",
                   }}
                 >
+                  <img
+                    src={"/day.png"}
+                    alt={"day"}
+                    style={{
+                      padding: "0.5px",
+                      width: "14px",
+                      height: "14px",
+                    }}
+                  />
                   Day
                 </th>
                 <th
@@ -603,7 +612,15 @@ const Form = ({ formData, onSubmit }) => {
                     alignItems: "center",
                     textDecoration: "none",
                   }}
-                >
+                ><img
+                src={"/date.png"}
+                alt={"date"}
+                style={{
+                  padding: "0.5px",
+                  width: "14px",
+                  height: "14px",
+                }}
+              />
                   Date
                 </th>
                 <th
@@ -622,7 +639,6 @@ const Form = ({ formData, onSubmit }) => {
                       padding: "0.5px",
                       width: "14px",
                       height: "14px",
-                      backgroundColor: "blue",
                     }}
                   />
                   City
@@ -668,6 +684,15 @@ const Form = ({ formData, onSubmit }) => {
                     textDecoration: "none",
                   }}
                 >
+                  <img
+                    src={"/mode.png"}
+                    alt={"mode"}
+                    style={{
+                      padding: "0.5px",
+                      width: "14px",
+                      height: "14px",
+                    }}
+                  />
                   Mode
                 </th>
                 <th
