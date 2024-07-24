@@ -134,7 +134,7 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
       <h1 className="form-h1"> * Query Form *</h1>
       <div className="form-group">
         <label htmlFor="pax">Pax:</label>
-        <div className="div-pax">
+        <div className="div-pax" >
           <label htmlFor="adult">Adult(12+):</label>
           <input
             type="number"
