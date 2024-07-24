@@ -95,22 +95,28 @@ td button:hover {
 
 .status-Replied {
   background-color: orange;
+  border-radius: 5px;
+ 
 }
 
 .status-Confirmed {
   background-color: green;
+  border-radius: 5px;
 }
 
 .status-Open {
   background-color: rgb(113, 113, 230);
+  border-radius: 5px;
 }
 
 .status-Lost {
-  background-color: rgb(252, 12, 12);
+  background-color: rgb(232, 121, 121);
+  border-radius: 5px;
 }
 
 .status-NA{
   background-color: rgb(245, 23, 23);
+  border-radius: 5px;
 }
 
 

@@ -232,7 +232,7 @@ export const queryDashboardDummyData = [
     address: "House no 16/A, Armay Colony",
     mobile: "1234567897",
     email: "asdfghjkl@gmail.com",
-    status: "Open",
+    status: "Confirmed",
     duration: "10",
     queryDate: "2024-07-10",
     tourStartDate: "2024-07-19",

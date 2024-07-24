@@ -21,7 +21,8 @@ const useStyles = makeStyles({
 
 const mockUsers = [
   { id: 1, email: 'admin@example.com', password: 'password123' },
-  { id: 2, email: 'veenaawasthi23@gmail.com', password: '123456' }
+  { id: 2, email: 'veenaawasthi23@gmail.com', password: '123456' },
+  { id: 3, email: 'vivektiwari@risingdestination.com', password: '123456'}
   // Add more users as needed
 ];
 
