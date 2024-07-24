@@ -1,8 +1,8 @@
-import React,{useEffect,useState} from "react";
+import React, { useEffect, useState } from "react";
 import "./Dashboard2.css";
 import { useNavigate } from "react-router-dom";
 
-const QeryDashboard = ({ forms,setEditQeryFormData }) => {
+const QeryDashboard = ({ forms, setEditQeryFormData }) => {
   const [searchUID, setSearchUID] = useState("");
   const [QuertFormtList, setQueryFormList] = useState([]);
   const navigate = useNavigate();
@@ -13,14 +13,32 @@ const QeryDashboard = ({ forms,setEditQeryFormData }) => {
   };
 
   useEffect(() => {
-    if(searchUID.length){
-       const filteredForms=forms.filter((form)=>form.uid.toLowerCase().includes(searchUID.toLocaleLowerCase()))
-       setQueryFormList(filteredForms)
+    if (searchUID.length) {
+      const filteredForms = forms.filter((form) =>
+        form.uid.toLowerCase().includes(searchUID.toLowerCase())
+      );
+      setQueryFormList(filteredForms);
+    } else {
+      setQueryFormList(forms);
     }
-    else{
-      setQueryFormList(forms)
+  }, [forms, searchUID]);
+
+  const getStatusColorClass = (status) => {
+    switch (status) {
+      case "Replied":
+        return "status-Replied";
+      case "Open":
+        return "status-Open";
+      case "Lost":
+        return "status-Lost";
+        case "Confirmed":
+        return "status-Confirmed";
+        case "NA":
+        return "status-NA"
+      default:
+        return "";
     }
-  }, [forms,searchUID]);
+  };
 
   return (
     <div className="dashboard">
@@ -28,7 +46,7 @@ const QeryDashboard = ({ forms,setEditQeryFormData }) => {
         Query Dashboard
       </h1>
       <div className="search-bar">
-        <label style={{textAlign:'center'}}>Search by UID</label>
+        <label style={{ textAlign: "center" }}>Search by UID</label>
         <input
           type="text"
           value={searchUID}
@@ -61,11 +79,15 @@ const QeryDashboard = ({ forms,setEditQeryFormData }) => {
                 <td>{form.uid}</td>
                 <td>{form.name}</td>
                 <td>{form.company}</td>
-                <td>{form.status}</td>
+                <td className={getStatusColorClass(form.status)}>
+                  {form.status}
+                </td>
                 <td>{form.queryDate}</td>
                 <td>{form.tourStartDate}</td>
                 <td>{form.agentHandling}</td>
-                <td>{form.address},{form.city}</td>
+                <td>
+                  {form.address}, {form.city}
+                </td>
                 <td>
                   <button onClick={() => handleEdit(form)}>Edit</button>
                 </td>

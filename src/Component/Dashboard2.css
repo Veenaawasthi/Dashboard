@@ -93,4 +93,24 @@ td button:hover {
   font-size: 20px;
 }
 
+.status-Replied {
+  background-color: orange;
+}
+
+.status-Confirmed {
+  background-color: green;
+}
+
+.status-Open {
+  background-color: rgb(113, 113, 230);
+}
+
+.status-Lost {
+  background-color: rgb(252, 12, 12);
+}
+
+.status-NA{
+  background-color: rgb(245, 23, 23);
+}
+
 

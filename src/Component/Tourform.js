@@ -238,7 +238,7 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
         >
           <option value="">Select Status</option>
           <option value="Replied">Replied</option>
-          <option value="Open">Open</option>
+          <option value="Open" >Open</option>
           <option value="Confirmed">Confirmed</option>
           <option value="Lost">Lost</option>
           <option value="NA(Reason for NA)">NA(Reason for NA)</option>
