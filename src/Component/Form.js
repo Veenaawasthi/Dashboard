@@ -206,7 +206,7 @@ const Form = ({ formData, onSubmit }) => {
         maxWidth: "800px",
         margin: "0 auto",
         padding: "20px",
-        backgroundColor: "#799678",
+        backgroundColor: "mediumslateblue",
         border: "1px solid #ccc",
         borderRadius: "8px",
       }}

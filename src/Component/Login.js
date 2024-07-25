@@ -3,12 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: '64px', // 8 * 8px (adjust as needed)
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+  },
+  formContainer: {
+    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Semi-transparent background for the form
+    padding: '24px',
+    borderRadius: '8px',
+    boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
   },
   form: {
     width: '100%', // Fix the width of the form
@@ -16,13 +22,25 @@ const useStyles = makeStyles({
   },
   submitButton: {
     margin: '24px 0 16px', // 3 * 8px 0 2 * 8px
+    padding: '12px', // Add padding to the button
   },
-});
+  title: {
+    marginBottom: '16px', // Margin below the title
+    fontWeight: 'bold', // Make the title bold
+    color: '#333', // Darker color for the title
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+  },
+  textField: {
+    marginBottom: '16px', // Margin below each text field
+  },
+}));
 
 const mockUsers = [
   { id: 1, email: 'admin@example.com', password: 'password123' },
   { id: 2, email: 'veenaawasthi23@gmail.com', password: '123456' },
-  { id: 3, email: 'vivektiwari@risingdestination.com', password: '123456'}
+  { id: 3, email: 'vivektiwari@risingdestination.com', password: '123456' }
   // Add more users as needed
 ];
 
@@ -67,52 +85,53 @@ const Login = ({ onLogin }) => {
 
   return (
     <Container component="main" maxWidth="xs" className={classes.container}>
-      <Typography component="h1" variant="h5">
-        Login
-      </Typography>
-      <form className={classes.form} onSubmit={handleLogin}>
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          id="email"
-          label="Email Address"
-          name="email"
-          autoComplete="email"
-          autoFocus
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <TextField
-          variant="outlined"
-          margin="normal"
-          required
-          fullWidth
-          name="password"
-          label="Password"
-          type="password"
-          id="password"
-          autoComplete="current-password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          color="primary"
-          className={classes.submitButton}
-        >
+      <div className={classes.formContainer}>
+        <Typography component="h1" variant="h5" className={classes.title}>
+          <img src="/login.png" alt="login" style={{ width: "40px", height: "35px" }} />
           Login
-        </Button>
-      </form>
+        </Typography>
+        <form className={classes.form} onSubmit={handleLogin}>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="email"
+            label="Email Address"
+            name="email"
+            autoComplete="email"
+            autoFocus
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={classes.textField}
+          />
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            name="password"
+            label="Password"
+            type="password"
+            id="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className={classes.textField}
+          />
+          <Button
+            type="submit"
+            fullWidth
+            variant="contained"
+            color="primary"
+            className={classes.submitButton}
+          >
+            Login
+          </Button>
+        </form>
+      </div>
     </Container>
   );
 };
 
 export default Login;
-
-
-
-

@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import QeryDashboard from "./Component/QueryDashboard";
 
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
