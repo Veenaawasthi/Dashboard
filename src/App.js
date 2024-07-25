@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Link, useLocation } from "react-router-dom";
 import Login from "./Component/Login";
 import Form from "./Component/Form";
 import Dashboard from "./Component/Dashboard2";
@@ -9,7 +9,7 @@ import { dummyData, queryDashboardDummyData } from "./Component/Service";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import QeryDashboard from "./Component/QueryDashboard";
-
+import Footer from "./Component/Footer";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,6 +20,7 @@ const App = () => {
   const [editFormData, setEditFormData] = useState({});
   const [editQeryFormData, setEditQeryFormData] = useState({});
   const [formList, setFormList] = useState([]);
+
   const addForm = (form) => {
     const newForm = {
       id: uuidv4(),
@@ -41,7 +42,6 @@ const App = () => {
   };
 
   const handleUpdateForm = (updatedForm) => {
-    // Logic to update the form in your state or backend
     const newUpdatedForm = {
       id: updatedForm.id,
       groupName: updatedForm.groupName,
@@ -74,13 +74,17 @@ const App = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
   useEffect(() => {
     setFormList(forms);
   }, [forms]);
+
   const updateQueryFormHandler = (formDate) => {
-    const updateQueryFormData=formDate;
-    const filterQueryFormData=queryForms.filter((item)=>item.uid!==formDate.uid)
-    setQueryForms([...filterQueryFormData,updateQueryFormData])
+    const updateQueryFormData = formDate;
+    const filterQueryFormData = queryForms.filter(
+      (item) => item.uid !== formDate.uid
+    );
+    setQueryForms([...filterQueryFormData, updateQueryFormData]);
   };
 
   return (
@@ -169,7 +173,7 @@ const App = () => {
                     alt="flowsheet"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontsize: "15px" }}>Itinerary Form</span>
+                  <span style={{ fontSize: "15px" }}>Itinerary Form</span>
                 </Link>
               </li>
               <li>
@@ -187,7 +191,7 @@ const App = () => {
                     alt="logout"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontsize: "15px" }}>Logout</span>
+                  <span style={{ fontSize: "15px" }}>Logout</span>
                 </Link>
               </li>
             </ul>
@@ -217,7 +221,6 @@ const App = () => {
                     />
                   }
                 />
-                {/* /queryeditForm */}
                 <Route
                   path="/queryeditForm"
                   element={
@@ -242,7 +245,12 @@ const App = () => {
                 />
                 <Route
                   path="/tourform"
-                  element={<Tourform addClient={setQueryForms} queryForms={queryForms} />}
+                  element={
+                    <Tourform
+                      addClient={setQueryForms}
+                      queryForms={queryForms}
+                    />
+                  }
                 />
               </>
             ) : (
@@ -250,9 +258,15 @@ const App = () => {
             )}
           </Routes>
         </div>
+        <ConditionalFooter />
       </div>
     </BrowserRouter>
   );
+};
+
+const ConditionalFooter = () => {
+  const location = useLocation();
+  return location.pathname === "/" ? <Footer /> : null;
 };
 
 export default App;
