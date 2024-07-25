@@ -3,19 +3,24 @@ import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
+
 const useStyles = makeStyles((theme) => ({
   container: {
     marginTop: '64px', // 8 * 8px (adjust as needed)
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+   
   },
+
   formContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Semi-transparent background for the form
-    padding: '24px',
+    backgroundColor: 'lightyellow', // Semi-transparent background for the form
+    padding: '20px',
     borderRadius: '8px',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+   
   },
+
   form: {
     width: '100%', // Fix the width of the form
     marginTop: '8px', // 1 * 8px
@@ -23,11 +28,12 @@ const useStyles = makeStyles((theme) => ({
   submitButton: {
     margin: '24px 0 16px', // 3 * 8px 0 2 * 8px
     padding: '12px', // Add padding to the button
+    
   },
   title: {
     marginBottom: '16px', // Margin below the title
     fontWeight: 'bold', // Make the title bold
-    color: '#333', // Darker color for the title
+    color: 'darkgreen', // Darker color for the title
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
@@ -87,7 +93,7 @@ const Login = ({ onLogin }) => {
     <Container component="main" maxWidth="xs" className={classes.container}>
       <div className={classes.formContainer}>
         <Typography component="h1" variant="h5" className={classes.title}>
-          <img src="/login.png" alt="login" style={{ width: "40px", height: "35px" }} />
+          <img src="/login.png" alt="login" style={{ width: "40px", height: "45px" }} />
           Login
         </Typography>
         <form className={classes.form} onSubmit={handleLogin}>
@@ -104,6 +110,7 @@ const Login = ({ onLogin }) => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className={classes.textField}
+            color='success'
           />
           <TextField
             variant="outlined"
@@ -118,12 +125,13 @@ const Login = ({ onLogin }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={classes.textField}
+            color='success'
           />
           <Button
             type="submit"
             fullWidth
             variant="contained"
-            color="primary"
+            color="success"
             className={classes.submitButton}
           >
             Login
