@@ -16,17 +16,12 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
 
   // Filter forms based on search inputs
   useEffect(() => {
-    if(searchName.length){
-       const filteredForms=forms.filter((form)=>form.clientName.toLowerCase().includes(searchName.toLocaleLowerCase()))
-       setFormList(filteredForms)
-    }else if(searchFileCode.length){
-      const filteredForms=forms.filter((form)=>form.fileCode.toLowerCase().includes(searchFileCode.toLocaleLowerCase()))
-      setFormList(filteredForms)
-    }
-    else{
-      setFormList(forms)
-    }
-  }, [forms,searchFileCode,searchName]);
+    const filteredForms = forms.filter((form) =>
+      form.clientName.toLowerCase().includes(searchName.toLowerCase()) &&
+      form.fileCode.toLowerCase().includes(searchFileCode.toLowerCase())
+    );
+    setFormList(filteredForms);
+  }, [forms, searchFileCode, searchName]);
 
   const handleView = (form) => {
     setItineraryData(form);
@@ -35,17 +30,15 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
 
   return (
     <div className="dashboard">
-      <h1 style={{ color: "black", backgroundColor: "AppWorkspace" }}>
-        Itinerary Dashboard
-      </h1>
+     <h1 className="dashboard-title">Itinerary Dashboard</h1>
       <div className="search-bar">
-        <label style={{textAlign:'center'}}>Search by Name</label>
+        <label style={{ textAlign: 'center' }}>Search by Name</label>
         <input
           type="text"
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
         />
-        <label style={{textAlign:'center'}}>Search by File Code</label>
+        <label style={{ textAlign: 'center' }}>Search by File Code</label>
         <input
           type="text"
           value={searchFileCode}
@@ -55,7 +48,7 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
       <div className="total-itineraries">
         <p>Total Itineraries: {forms.length}</p>
       </div>
-      {formList?.length === 0 ? (
+      {formList.length === 0 ? (
         <p>No forms submitted yet.</p>
       ) : (
         <table>
@@ -71,7 +64,7 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
             </tr>
           </thead>
           <tbody>
-            {formList?.map((form, index) => (
+            {formList.map((form, index) => (
               <tr key={index}>
                 <td>{form.fileCode}</td>
                 <td>{form.clientName}</td>
@@ -95,3 +88,4 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
 };
 
 export default Dashboard;
+
