@@ -103,23 +103,23 @@ button:hover {
 }
 
 .status-Replied {
-  color: green;
+  color: rgb(5, 5, 77);
 }
 
 .status-Open {
-  color: orange;
+  color: rgb(240, 164, 23);
 }
 
 .status-Lost {
-  color: red;
+  color: rgb(132, 17, 17);
 }
 
 .status-Confirmed {
-  color: blue;
+  color: rgb(7, 108, 7);
 }
 
 .status-NA {
-  color: gray;
+  color: rgb(70, 66, 66);
 }
 
 /* Add responsive styles */
