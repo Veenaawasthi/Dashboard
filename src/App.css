@@ -1,30 +1,22 @@
 .app {
-  font-family: Arial, sans-serif; /* Specify font family */
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-  backface-visibility: hidden; /* Optimize for 3D transforms */
-  
-
-  /* Background image settings */
-   /* background-image: url('http://getwallpapers.com/wallpaper/full/c/9/c/192782.jpg');   */
-  /* background-size: cover; Cover the entire viewport with the background image */
-  /* background-position: center; /* Center the background image */
-  
-  
-  /*height: fit-content;  Set height to fit the content inside */
-  background-color: 'white'/* Fallback background color */
+  display: flex;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  backface-visibility: hidden;
+  background-color: white; /* Fallback background color */
 }
 
-
+/* Container Styling */
 .container {
-  margin-bottom: 40px;
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 0 auto 40px;
   padding: 20px;
   border: 1px solid #4519c9;
   border-radius: 8px;
 }
 
+/* Form Section Styling */
 .form-split {
   display: flex;
   justify-content: space-between;
@@ -36,6 +28,12 @@
   margin: 10px;
   border: 1px solid #171717;
   border-radius: 8px;
+}
+
+.form-section h2 {
+  font-size: 1.5rem; /* Increase font size */
+  margin-bottom: 20px; /* Add margin for spacing */
+  color: #333; /* Use a consistent color */
 }
 
 .form-row {
@@ -55,6 +53,7 @@
   flex: 2;
 }
 
+/* Service Table Styling */
 .service-table table {
   width: 100%;
   margin-top: 10px;
@@ -68,6 +67,12 @@
   text-align: left;
 }
 
+.service-table th {
+  background-color: #f0f0f0; /* Add a background color for better visibility */
+  font-weight: bold; /* Make headers bold */
+}
+
+/* Button Styling */
 button {
   background-color: #1fcc25;
   color: white;
@@ -87,12 +92,18 @@ button:hover {
   justify-content: space-between;
 }
 
+/* Dashboard Styling */
 .dashboard {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
   background-color: rgb(245, 245, 228);
-  
+}
+
+.dashboard h2 {
+  font-size: 1.5rem; /* Increase font size */
+  margin-bottom: 20px; /* Add margin for spacing */
+  color: #333; /* Use a consistent color */
 }
 
 .form-entry {
@@ -108,8 +119,9 @@ button:hover {
   }
 }
 
+/* Sidebar Styling */
 .sidebar {
-  width: 250px; /* Fixed width for sidebar */
+  width: 250px;
   background-color: #f0f0f0;
   padding: 20px;
 }
@@ -117,6 +129,7 @@ button:hover {
 .sidebar h2 {
   font-size: 1.5rem;
   margin-bottom: 15px;
+  color: #333;
 }
 
 .sidebar ul {
@@ -131,51 +144,55 @@ button:hover {
 .sidebar a {
   text-decoration: none;
   color: #333;
-  /* font-size: 1.2rem; */
 }
 
 .sidebar a:hover {
-  color: #007bff; /* Blue color for hover effect */
+  color: #007bff;
 }
 
+/* Main Content Styling */
 .main-content {
-  flex: 1; /* Take remaining space */
+  flex: 1;
   padding: 20px;
 }
 
 @media (max-width: 768px) {
   .app {
-    flex-direction: column; /* Stack sidebar and main-content in mobile view */
-    height: auto; /* Allow content to expand vertically */
+    flex-direction: column;
+    height: auto;
   }
 
   .sidebar {
-    width: 100%; /* Full width in mobile view */
-    order: 1; /* Move sidebar below main-content */
+    width: 100%;
+    order: 1;
     margin-bottom: 20px;
   }
 
   .main-content {
-    width: 100%; /* Full width in mobile view */
-    order: 2; /* Move main-content above sidebar */
+    width: 100%;
+    order: 2;
   }
 }
-/* App.css */
-.app {
-  display: flex;
-}
 
+/* Hamburger Menu Styling */
 .hamburger-menu {
   position: fixed;
   top: 10px;
   left: 10px;
-  font-size: 24px;
+  font-size: 24px; /* Adjust the size as needed */
+  padding: 5px; /* Add padding for better touch targets */
   background: none;
   border: none;
   cursor: pointer;
   z-index: 1000;
+  color: #333; /* Ensure it's visible against your background */
 }
 
+.hamburger-menu:hover {
+  color: #007bff; /* Add a hover effect for better UX */
+}
+
+/* Sidebar Styling */
 .sidebar {
   width: 200px;
   background-color: #333;
@@ -203,9 +220,9 @@ button:hover {
 }
 
 .main-content {
-  margin-left: 200px; /* Adjust this based on sidebar width */
+  margin-left: 200px;
   padding: 20px;
-  width: calc(100% - 200px); /* Adjust this based on sidebar width */
+  width: calc(100% - 200px);
 }
 
 @media (max-width: 768px) {
@@ -219,11 +236,5 @@ button:hover {
     height: auto;
   }
 }
-
-
-
-
-
-
 
 
