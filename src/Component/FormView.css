@@ -26,7 +26,8 @@
   }
   
   .info-table th, .services-table th, .hotels-table th, .quotation-table th {
-    background-color: #f2f2f2;
+    background-color: #e5cfcf;
+    color: #000;
   }
   
   .services-table th, .services-table td {
