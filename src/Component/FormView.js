@@ -171,4 +171,5 @@ export const FormView = ({ itineraryData }) => {
       ))}
     </div>
   );
-};
+};    
+

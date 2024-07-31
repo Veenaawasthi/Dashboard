@@ -58,13 +58,13 @@ const Login = ({ onLogin }) => {
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
-    event.preventDefault(); // Prevent form submission from refreshing the page
+    event.preventDefault(); 
 
-    // Trim whitespace from email and password
+
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
 
-    // Validate email format (simple check for @ symbol)
+  
     if (!trimmedEmail.includes('@')) {
       alert('Invalid email format');
       return;

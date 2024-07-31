@@ -3,8 +3,13 @@
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  backface-visibility: hidden;
-  background-color: white; /* Fallback background color */
+  backface-visibility: hidden; 
+  /* background-color: white; Fallback background color */
+  /* background-image: url('https://wallpapercave.com/wp/wp4782956.jpg'); */
+ background-size: cover;
+  background-position: 0cqmax; 
+ background-repeat: repeat;
+ 
 }
 
 /* Container Styling */
@@ -195,7 +200,7 @@ button:hover {
 /* Sidebar Styling */
 .sidebar {
   width: 200px;
-  background-color: #333;
+  background-color: #1f1e1e;
   color: white;
   height: 100vh;
   padding-top: 20px;

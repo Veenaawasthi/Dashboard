@@ -11,6 +11,7 @@ import "./App.css";
 import QeryDashboard from "./Component/QueryDashboard";
 import Footer from "./Component/Footer";
 
+
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
