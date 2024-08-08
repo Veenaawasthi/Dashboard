@@ -126,7 +126,7 @@ button:hover {
 
 /* Sidebar Styling */
 .sidebar {
-  width: 250px;
+  width: 300px;
   background-color: #f0f0f0;
   padding: 20px;
 }
@@ -199,7 +199,7 @@ button:hover {
 
 /* Sidebar Styling */
 .sidebar {
-  width: 200px;
+  width: 300px;
   background-color: #1f1e1e;
   color: white;
   height: 100vh;

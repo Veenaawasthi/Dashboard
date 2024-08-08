@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard2.css";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
 
 const QueryDashboard = ({ forms, setEditQeryFormData }) => {
   const [searchUID, setSearchUID] = useState("");
@@ -61,15 +62,15 @@ const QueryDashboard = ({ forms, setEditQeryFormData }) => {
         <table className="queries-table">
           <thead>
             <tr>
-              <th>UID</th>
-              <th>Client Name</th>
-              <th>Company Name</th>
-              <th>Status</th>
-              <th>Query Date</th>
-              <th>Tour Start Date</th>
-              <th>Agent</th>
-              <th>Address</th>
-              <th>Action</th>
+              <th><i className="bi bi-file-earmark-text"></i> UID</th>
+              <th><i className="bi bi-person"></i> Client Name</th>
+              <th><i className="bi bi-building"></i> Company Name</th>
+              <th><i className="bi bi-flag"></i> Status</th>
+              <th><i className="bi bi-calendar"></i> Query Date</th>
+              <th><i className="bi bi-calendar-date"></i> Tour Start Date</th>
+              <th><i className="bi bi-person-badge"></i> Agent</th>
+              <th><i className="bi bi-house-door"></i> Address</th>
+              <th><i className="bi bi-gear"></i> Action</th>
             </tr>
           </thead>
           <tbody>
@@ -78,7 +79,9 @@ const QueryDashboard = ({ forms, setEditQeryFormData }) => {
                 <td>{form.uid}</td>
                 <td>{form.name}</td>
                 <td>{form.company}</td>
-                <td className={getStatusColorClass(form.status)}>{form.status}</td>
+                <td className={getStatusColorClass(form.status)}>
+                  <i className={`bi bi-circle-fill ${getStatusColorClass(form.status)}`}></i> {form.status}
+                </td>
                 <td>{form.queryDate}</td>
                 <td>{form.tourStartDate}</td>
                 <td>{form.agentHandling}</td>
@@ -86,7 +89,9 @@ const QueryDashboard = ({ forms, setEditQeryFormData }) => {
                   {form.address}, {form.city}
                 </td>
                 <td>
-                  <button onClick={() => handleEdit(form)}>Edit</button>
+                  <button onClick={() => handleEdit(form)}>
+                    <i className="bi bi-pencil"></i> Edit
+                  </button>
                 </td>
               </tr>
             ))}
@@ -98,4 +103,6 @@ const QueryDashboard = ({ forms, setEditQeryFormData }) => {
 };
 
 export default QueryDashboard;
+
+
 

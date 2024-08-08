@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Dashboard2.css";
 import { useNavigate } from "react-router-dom";
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
 
 const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
   const [searchName, setSearchName] = useState("");
@@ -30,7 +31,7 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
 
   return (
     <div className="dashboard">
-     <h1 className="dashboard-title">Itinerary Dashboard</h1>
+      <h1 className="dashboard-title">Itinerary Dashboard</h1>
       <div className="search-bar">
         <label style={{ textAlign: 'center' }}>Search by Name</label>
         <input
@@ -54,13 +55,13 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
         <table>
           <thead>
             <tr>
-              <th>File Code</th>
-              <th>Name</th>
-              <th>Group Name</th>
-              <th>Total Pax</th>
-              <th>Tour Date</th>
-              <th>Flight</th>
-              <th>Action</th>
+              <th><i className="bi bi-file-earmark-text"></i> File Code</th>
+              <th><i className="bi bi-person"></i> Name</th>
+              <th><i className="bi bi-house-door"></i> Group Name</th>
+              <th><i className="bi bi-people"></i> Total Pax</th>
+              <th><i className="bi bi-calendar"></i> Tour Date</th>
+              <th><i className="bi bi-plane"></i> Flight</th>
+              <th><i className="bi bi-gear"></i> Action</th>
             </tr>
           </thead>
           <tbody>
@@ -74,9 +75,11 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
                 <td>{form.flight}</td>
                 <td>
                   <button onClick={() => handleView(form)}>
-                    View Form Details
+                    <i className="bi bi-eye"></i> View Form Details
                   </button>
-                  <button onClick={() => handleEdit(form)}>Edit</button>
+                  <button onClick={() => handleEdit(form)}>
+                    <i className="bi bi-pencil"></i> Edit
+                  </button>
                 </td>
               </tr>
             ))}

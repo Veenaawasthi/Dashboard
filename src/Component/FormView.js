@@ -13,101 +13,135 @@ export const FormView = ({ itineraryData }) => {
     const element = document.getElementById("printSection");
 
     const options = {
-      margin: 0.22,
-      filename: "iternerary.pdf",
+      margin: 0.5,
+      filename: "itinerary.pdf",
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2 },
-      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+      jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
     };
 
     html2pdf().set(options).from(element).save();
   };
+  const getIconClass = (service) => {
+    switch (service) {
+      case 'City':
+        return 'fas fa-location';
+      case 'Time':
+        return 'fas fa-clock';
+      case 'Service':
+        return 'bi bi-geo';
+      case 'Mode':
+        return 'fas fa-subway';
+      case 'File Code':
+        return 'fas fa-file-alt';
+      case 'Group Name':
+        return 'fas fa-users';
+      case 'Total Pax':
+        return 'fas fa-user-friends';
+      case 'Client Name':
+        return 'fas fa-user';
+      case 'Agent':
+        return 'fas fa-user-tie';
+      case 'Itinerary':
+        return 'fas fa-map-signs';
+      case 'Validity':
+        return 'fas fa-calendar-check';
+      case 'Tour Date':
+        return 'fas fa-calendar';
+      case 'Date of QTN':
+        return 'fas fa-calendar-alt';
+      default:
+        return '';
+    }
+  };
 
   return (
     <div className="formViewContainar" id="printSection">
-      <button onClick={handlePrintPdf}>Print to PDF</button>
+      <button onClick={handlePrintPdf} className="btn btn-primary mb-3">
+        <i className="fas fa-print"></i> Print to PDF
+      </button>
       <header className="header">
-        <img
-          src={"/Logo RD.jpg"}
-          alt="Rising Destination"
-          className="logo"
-        />
+        <img src={"/Logo RD.jpg"} alt="Rising Destination" className="logo" />
         <h1>Experiential Japan Package</h1>
-        <h2>07 Nights/ 08 Days</h2>
+        <h2>{itineraryData.validity}</h2>
       </header>
-      <table className="info-table">
+      <table className="table table-bordered">
         <tbody>
           <tr>
-            <td>File Code</td>
+            <td><i className={getIconClass('File Code')}></i> File Code</td>
             <td>{itineraryData.fileCode}</td>
-            <td>Agent</td>
+            <td><i className={getIconClass('Agent')}></i> Agent</td>
             <td colSpan="3">{itineraryData.agent}</td>
           </tr>
           <tr>
-            <td>Group Name</td>
+            <td><i className={getIconClass('Group Name')}></i> Group Name</td>
             <td>{itineraryData.groupName}</td>
-            <td>Client Name</td>
+            <td><i className={getIconClass('Client Name')}></i> Client Name</td>
             <td>{itineraryData.clientName}</td>
           </tr>
           <tr>
-            <td>Total Pax</td>
+            <td><i className={getIconClass('Total Pax')}></i> Total Pax</td>
             <td>{itineraryData.totalPax}</td>
-            <td>Tour Date</td>
+            <td><i className={getIconClass('Tour Date')}></i> Tour Date</td>
             <td>{itineraryData.tourDate}</td>
           </tr>
           <tr>
-            <td>Flight<img src={"/takeoff.png"} alt={"takeoff"} style={{padding: "0.5px",width: "20px",height: "16px"}}/></td>
+            <td><i className="fas fa-plane-departure ml-1"></i> Flight</td>
             <td>{itineraryData.flight}</td>
-            <td>Date of QTN</td>
+            <td><i className={getIconClass('Date of QTN')}></i> Date of QTN</td>
             <td>{itineraryData.dateOfQtn}</td>
           </tr>
           <tr>
-            <td>Itinerary</td>
+            <td><i className={getIconClass('Itinerary')}></i> Itinerary</td>
             <td colSpan="3">{itineraryData.itinerary}</td>
           </tr>
           <tr>
-            <td>Validity</td>
+            <td><i className={getIconClass('Validity')}></i> Validity</td>
             <td colSpan="3">{itineraryData.validity}</td>
           </tr>
         </tbody>
       </table>
-      <h3><img src={"/itinerary.png"} alt={"itinerary"} style={{padding: "0.5px",width: "20px",height: "20px",backgroundColor: "blue",}}/>Itinerary Details</h3>
-      <table className="services-table">
+      <h3>
+        <i className="fas fa-route"></i> Itinerary Details
+      </h3>
+      <table className="table table-bordered">
         <thead>
           <tr>
-            <th><img src={"/city.png"} alt={"city"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>City</th>
-            <th><img src={"/day.png"} alt={"day"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Day</th>
-            <th><img src={"/date.png"} alt={"date"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Date</th>
-            <th><img src={"/activity.png"} alt={"activity"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Service</th>
-            <th><img src={"/duration.png"} alt={"duration"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Duration</th>
-            <th><img src={"/mode.png"} alt={"mode"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Mode</th>
-            <th><img src={"/meal.png"} alt={"meal"} style={{padding: "0.5px",width: "25px",height: "14px"}}/>Meal</th>
-            <th></th>
+            
+            <th> Day</th>
+            <th> Date</th>
+            <th> City</th>
+            <th> Time</th>
+            <th> Service</th>
+            <th>Duration</th>
+            <th>Mode</th>
+            <th> Meal</th>
           </tr>
         </thead>
         <tbody>
           {itineraryData.services.map((service, index) => (
             <tr key={index}>
-              <td>{service.city}</td>
-              <td>{service.day}</td>
-              <td>{service.date}</td>
-              <td>{service.service}</td>
-              <td>{service.duration}</td>
-              <td>{service.mode}</td>
-              <td>{service.meal}</td>
-              <td></td>
+              
+              <td>{service.day && <i className="fas fa-calendar-day icon-small"></i>} {service.day}</td>
+              <td>{service.date && <i className="fas fa-calendar-alt icon-small"></i>} {service.date}</td>
+              <td>{service.city && <i className={getIconClass('City') + ' icon-small'}></i>} {service.city}</td>
+              <td>{service.time && <i className={getIconClass('Time') + ' icon-small'}></i>} {service.time}</td>
+              <td>{service.service && <i className={getIconClass('Service') + ' icon-small'}></i>} {service.service}</td>
+              <td>{service.duration && <i className="fas fa-hourglass-half icon-small"></i>} {service.duration}</td>
+              <td>{service.mode && <i className={getIconClass('Mode') + ' icon-small'}></i>} {service.mode}</td>
+              <td>{service.meal && <i className="fas fa-utensils icon-small"></i>} {service.meal}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <h3><img src={"/hotel.png"} alt={"hotel"} style={{padding: "0.5px",width: "24px",height: "20px",}}/>Hotels Envisaged</h3>
-      <table className="hotels-table">
+      <h3><i className="fas fa-hotel"></i> Hotels Envisaged</h3>
+      <table className="table table-bordered">
         <thead>
           <tr>
-            <th>City</th>
-            <th>Dates</th>
-            <th>Nights</th>
-            <th>Hotels</th>
+            <th><i className="fas fa-city"></i> City</th>
+            <th><i className="fas fa-calendar-alt"></i> Dates</th>
+            <th><i className="fas fa-bed"></i> Nights</th>
+            <th><i className="fas fa-hotel"></i> Hotels</th>
           </tr>
         </thead>
         <tbody>
@@ -122,14 +156,14 @@ export const FormView = ({ itineraryData }) => {
         </tbody>
       </table>
       <h3>Quotation Slab</h3>
-      <table className="quotation-table">
+      <table className="table table-bordered">
         <thead>
           <tr>
-            <th>Slab</th>
-            <th>Minimum Pax</th>
-            <th>Maximum Pax</th>
-            <th>No. of FOC</th>
-            <th>PP Cost</th>
+            <th><i className="fas fa-sliders-h"></i> Slab</th>
+            <th><i className="fas fa-user-friends"></i> Minimum Pax</th>
+            <th><i className="fas fa-user-friends"></i> Maximum Pax</th>
+            <th><i className="fas fa-user"></i> No. of FOC</th>
+            <th><i className="fas fa-dollar-sign"></i> PP Cost</th>
           </tr>
         </thead>
         <tbody>
@@ -146,14 +180,24 @@ export const FormView = ({ itineraryData }) => {
       </table>
       <h3>INCLUSION</h3>
       {Inclusions.map((item, i) => (
-        <p key={i}> {item}</p>
+        <p key={i}><i className="fas fa-check"></i> {item}</p>
       ))}
       <h3>EXCLUSION</h3>
       {Exclusion.map((item, i) => (
-        <p key={i}> {item}</p>
+        <p key={i}><i className="fas fa-times"></i> {item}</p>
       ))}
-      <h3>TOUR CONDITION</h3>
-      <table className="tour-condition-table">
+       <h3>TOUR CONDITION</h3>
+      <table className="table table-bordered">
+        <thead>
+          <tr>
+            <th>
+              <i className="fas fa-info-circle"></i> Condition
+            </th>
+            <th>
+              <i className="fas fa-info-circle"></i> Detail
+            </th>
+          </tr>
+        </thead>
         <tbody>
           {tourConditionData.map((item, index) => (
             <tr key={index}>
@@ -163,13 +207,10 @@ export const FormView = ({ itineraryData }) => {
           ))}
         </tbody>
       </table>
-      <h3>
-        JAPAN STATES TRANSPORTATION AGENCY DRIVER WORKING HOURS REGULATION
-      </h3>
+      <h3>JAPAN STATES TRANSPORTATION AGENCY DRIVER WORKING HOURS REGULATION</h3>
       {TransportaionRules.map((item, i) => (
-        <p key={i}> {item}</p>
+        <p key={i}><i className="fas fa-clock"></i> {item}</p>
       ))}
     </div>
   );
-};    
-
+};

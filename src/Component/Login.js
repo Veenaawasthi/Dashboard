@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-   
   },
 
   formContainer: {
@@ -19,7 +18,6 @@ const useStyles = makeStyles((theme) => ({
     padding: '20px',
     borderRadius: '8px',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-   
   },
 
   form: {
