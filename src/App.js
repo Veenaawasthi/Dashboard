@@ -113,11 +113,11 @@ const App = () => {
                   }}
                 >
                   <img
-                    src={"/dashboard.png"}
+                    src={"/itineraydashboard.png"}
                     alt="dashboard"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontSize: "15px" }}>Dashboard</span>
+                  <span style={{ fontSize: "15px" }}>Itinerary Dashboard</span>
                 </Link>
               </li>
               <li>
@@ -147,8 +147,8 @@ const App = () => {
                   }}
                 >
                   <img
-                    src={"/flowsheet.png"}
-                    alt="flowsheet"
+                    src={"/query.png"}
+                    alt="query"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />
                   <span style={{ fontSize: "15px" }}>Query Form</span>
@@ -164,7 +164,7 @@ const App = () => {
                   }}
                 >
                   <img
-                    src={"/flowsheet.png"}
+                    src={"/form.png"}
                     alt="flowsheet"
                     style={{ padding: "0.5px", width: "24px", height: "24px" }}
                   />

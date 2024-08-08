@@ -5,12 +5,12 @@
   backface-visibility: hidden; /* Optimize for 3D transforms */
 
   /* Background image settings */
-  background-image: url('https://tse3.mm.bing.net/th?id=OIP.6vjF9yW0qFewpAqdAG2tygHaDu&pid=Api&P=0&h=180');
+  /* background-image: url('https://tse3.mm.bing.net/th?id=OIP.6vjF9yW0qFewpAqdAG2tygHaDu&pid=Api&P=0&h=180'); */
   background-size: cover; /* Cover the entire viewport with the background image */
   background-position: center; /* Center the background image */
   
   /*height: fit-content;  Set height to fit the content inside */
-  background-color: antiquewhite; /* Fallback background color */
+  background-color: lavender; /* Fallback background color */
 }
 
 
