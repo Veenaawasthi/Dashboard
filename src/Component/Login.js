@@ -58,7 +58,7 @@ const Login = ({ onLogin }) => {
     if (user) {
       alert('Successfully logged in!');
       onLogin(true); // Notify parent component (App.js) of successful login
-      navigate('/'); // Navigate to home page or desired route
+      navigate('/dashboard'); // Navigate to home page or desired route
     } else {
       alert('Invalid credentials');
     }

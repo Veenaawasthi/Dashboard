@@ -1,172 +1,51 @@
-import React, { useState } from 'react';
-import jsPDF from 'jspdf';
-import 'jspdf-autotable'; // Make sure to install jspdf-autotable plugin
-import Form from './Form'; // Adjust path as needed
-import './Dashboard2.css';
+import React, { useEffect, useState } from "react";
+import "./Dashboard2.css";
+import { useNavigate } from "react-router-dom";
 
-const Dashboard = ({ forms }) => {
-  const [editForm, setEditForm] = useState(null);
-  const [searchName, setSearchName] = useState('');
-  const [searchFileCode, setSearchFileCode] = useState('');
-
-  // Function to handle downloading PDF of a form
-  const handleDownload = (form) => {
-    const {
-      logo,
-      name,
-      groupName,
-      totalPax,
-      tourDate,
-      flight,
-      clientName,
-      dateOfQtn,
-      agent,
-      days,
-      date,
-      city,
-      service,
-      duration,
-      mode,
-      meal,
-      hotels,
-      hotelNights,
-      ppCost,
-      slab,
-      minPax,
-      maxPax,
-      noOfFoc,
-      nights,
-      dates,
-      filecode
-    } = form;
-
-    const doc = new jsPDF();
-    doc.setTextColor(0, 0, 0); // Black text
-
-    // Function to add content to PDF document
-    const addContent = () => {
-      let startY = 20; // Adjust start position as needed
-      doc.setFontSize(16);
-      doc.text("Itinerary Form", 14, startY);
-      doc.setFontSize(12);
-
-      // General details section
-      const details = [
-        ["Name:", name],
-        ["Group Name:", groupName],
-        ["Total Pax:", totalPax],
-        ["Tour Date:", tourDate],
-        ["Flight:", flight],
-        ["Client Name:", clientName],
-        ["Date of QTN:", dateOfQtn],
-        ["Agent:", agent]
-      ];
-
-      doc.autoTable({
-        head: [['Field', 'Value']],
-        body: details,
-        startY: startY + 10, // Adjust start Y position of the table
-        theme: 'plain', // Optional - change table theme
-        columnStyles: {
-          0: { fontStyle: 'bold' } // Style for the first column (Field)
-        }
-      });
-
-      // Itinerary details section
-      const itineraryDetails = [
-        ["Days", days],
-        ["Date", date],
-        ["City", city],
-        ["Service", service],
-        ["Duration", duration],
-        ["Mode", mode],
-        ["Meal", meal],
-        ["Hotels", hotels],
-        ["Hotel Nights", hotelNights],
-        ["PP Cost", ppCost]
-      ];
-
-      doc.autoTable({
-        head: [['Field', 'Value']],
-        body: itineraryDetails,
-        startY: doc.autoTable.previous.finalY + 10, // Start below the previous table
-        theme: 'plain', // Optional - change table theme
-        columnStyles: {
-          0: { fontStyle: 'bold' } // Style for the first column (Field)
-        }
-      });
-
-      // Quotation Slab table section
-      const slabData = [
-        ["Slab", slab],
-        ["Min Pax", minPax],
-        ["Max Pax", maxPax],
-        ["No. of Foc", noOfFoc],
-        ["Nights", nights],
-        ["Dates", dates]
-      ];
-
-      doc.autoTable({
-        head: [['Field', 'Value']],
-        body: slabData,
-        startY: doc.autoTable.previous.finalY + 10, // Start below the previous table
-        theme: 'grid', // Optional - change table theme
-        columnStyles: {
-          0: { fontStyle: 'bold' } // Style for the first column (Field)
-        }
-      });
-
-      // Add logo if available
-      if (logo) {
-        const img = new Image();
-        img.src = logo;
-        img.onload = function () {
-          doc.addImage(this, 'JPEG', 150, 10, 40, 40);
-          doc.save(`${filecode}_itinerary.pdf`);
-        };
-      } else {
-        doc.save(`${filecode}_itinerary.pdf`);
-      }
-    };
-
-    addContent();
-  };
+const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
+  const [searchName, setSearchName] = useState("");
+  const [searchFileCode, setSearchFileCode] = useState("");
+  const [formList, setFormList] = useState([]);
+  const navigate = useNavigate();
 
   // Function to handle editing a form
   const handleEdit = (form) => {
-    setEditForm(form);
-  };
-
-  // Function to handle cancelling edit mode
-  const handleCancelEdit = () => {
-    setEditForm(null);
-  };
-
-  // Function to handle updating a form after editing
-  const handleUpdateForm = (updatedForm) => {
-    // Logic to update the form in your state or backend
-    console.log('Updated form:', updatedForm);
-    setEditForm(null); // Clear the edit form state after updating
+    setEditFormData(form);
+    navigate("/editForm");
   };
 
   // Filter forms based on search inputs
-  const filteredForms = forms.filter(form => {
-    const nameMatch = form.name ? form.name.toLowerCase().includes(searchName.toLowerCase()) : false;
-    const fileCodeMatch = form.filecode ? form.filecode.toLowerCase().includes(searchFileCode.toLowerCase()) : false;
-    return nameMatch && fileCodeMatch;
-  });
+  useEffect(() => {
+    if(searchName.length){
+       const filteredForms=forms.filter((form)=>form.clientName.toLowerCase().includes(searchName.toLocaleLowerCase()))
+       setFormList(filteredForms)
+    }else if(searchFileCode.length){
+      const filteredForms=forms.filter((form)=>form.fileCode.toLowerCase().includes(searchFileCode.toLocaleLowerCase()))
+      setFormList(filteredForms)
+    }
+    else{
+      setFormList(forms)
+    }
+  }, [forms,searchFileCode,searchName]);
+
+  const handleView = (form) => {
+    setItineraryData(form);
+    navigate("/view");
+  };
 
   return (
     <div className="dashboard">
-      <h1 style={{ color: 'black', backgroundColor: "AppWorkspace" }}>Itinerary Dashboard</h1>
+      <h1 style={{ color: "black", backgroundColor: "AppWorkspace" }}>
+        Itinerary Dashboard
+      </h1>
       <div className="search-bar">
-        <label>Search by Name</label>
+        <label style={{textAlign:'center'}}>Search by Name</label>
         <input
           type="text"
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
         />
-        <label>Search by File Code</label>
+        <label style={{textAlign:'center'}}>Search by File Code</label>
         <input
           type="text"
           value={searchFileCode}
@@ -176,7 +55,7 @@ const Dashboard = ({ forms }) => {
       <div className="total-itineraries">
         <p>Total Itineraries: {forms.length}</p>
       </div>
-      {filteredForms.length === 0 ? (
+      {formList?.length === 0 ? (
         <p>No forms submitted yet.</p>
       ) : (
         <table>
@@ -192,16 +71,18 @@ const Dashboard = ({ forms }) => {
             </tr>
           </thead>
           <tbody>
-            {filteredForms.map((form, index) => (
+            {formList?.map((form, index) => (
               <tr key={index}>
-                <td>{form.filecode}</td>
-                <td>{form.name}</td>
+                <td>{form.fileCode}</td>
+                <td>{form.clientName}</td>
                 <td>{form.groupName}</td>
                 <td>{form.totalPax}</td>
                 <td>{form.tourDate}</td>
                 <td>{form.flight}</td>
                 <td>
-                  <button onClick={() => handleDownload(form)}>Download PDF</button>
+                  <button onClick={() => handleView(form)}>
+                    View Form Details
+                  </button>
                   <button onClick={() => handleEdit(form)}>Edit</button>
                 </td>
               </tr>
@@ -209,22 +90,8 @@ const Dashboard = ({ forms }) => {
           </tbody>
         </table>
       )}
-
-      {editForm && (
-        <div className="edit-form">
-          <h2>Edit Form</h2>
-          <Form
-            formData={editForm}
-            onSubmit={handleUpdateForm}
-            onCancel={handleCancelEdit}
-          />
-        </div>
-      )}
     </div>
   );
 };
 
 export default Dashboard;
-
-
-
