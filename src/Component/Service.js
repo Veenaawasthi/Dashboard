@@ -73,7 +73,7 @@ export const cityServiceMapping = {
     ],
 
   'Kobe':
-             ['Kobe Port Tower ',
+       ['Kobe Port Tower ',
       'Kobe Earthquake Memorial Museum',
       'Akashi Kaikyo Bridge(Longest) - Free ',
       'Earthquake Memorial Museum',

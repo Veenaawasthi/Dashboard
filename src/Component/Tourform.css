@@ -1,11 +1,11 @@
 /* Tourform.css */
 
 .form {
-  max-width: 700px;
+  max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #1e5f3e;
-  border-radius: 10px;
+  background-color: #c1e6e6;
+  border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 

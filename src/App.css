@@ -180,18 +180,19 @@ button:hover {
 }
 
 /* Hamburger Menu Styling */
-.hamburger-menu {
-  position: fixed;
-  top: 10px;
-  left: 10px;
-  font-size: 24px; /* Adjust the size as needed */
-  padding: 5px; /* Add padding for better touch targets */
-  background: none;
-  border: none;
-  cursor: pointer;
-  z-index: 1000;
-  color: #333; /* Ensure it's visible against your background */
-}
+
+  .hamburger-menu {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1000; /* Ensure it stays on top of other content */
+    font-size: 24px; /* Increase the size of the icon */
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 10px;
+  }/* Ensure it's visible against your background */
+
 
 .hamburger-menu:hover {
   color: #007bff; /* Add a hover effect for better UX */
@@ -199,14 +200,12 @@ button:hover {
 
 /* Sidebar Styling */
 .sidebar {
-  width: 300px;
-  background-color: #1f1e1e;
-  color: white;
-  height: 100vh;
-  padding-top: 20px;
   position: fixed;
   top: 0;
   left: 0;
+  width: 270px;
+  height: 100%;
+  padding-top: 60px; /* Ensure padding from the top */
   z-index: 999;
 }
 
