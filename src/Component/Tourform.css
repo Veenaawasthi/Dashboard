@@ -1,10 +1,10 @@
 /* Tourform.css */
 
 .form {
-  max-width: 600px;
+  max-width: 700px;
   margin: 0 auto;
   padding: 20px;
-  background-color: #799678;
+  background-color: #1e5f3e;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -12,7 +12,7 @@
 .form-h1 {
   text-align: center;
   margin-bottom: 20px;
-  color: #333;
+  color: #131312;
   font-size: 24px;
 }
 
@@ -38,9 +38,9 @@
 }
 
 .form-group input[type="number"] {
-  -moz-appearance: textfield;
+  -moz-appearance: textfield; /* Remove spinner in Firefox */
+  appearance: textfield; /* Standard property for compatibility */
 }
-
 .form-group input[type="number"]::-webkit-outer-spin-button,
 .form-group input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -54,7 +54,7 @@
 
 .div-pax label,
 .div-pax input {
-  width: 30%;
+  width: 20%;
 }
 
 .submit,

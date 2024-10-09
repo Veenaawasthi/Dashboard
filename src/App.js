@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, Link, useLocation } from "react-router-dom";
 import Login from "./Component/Login";
 import Form from "./Component/Form";
 import Dashboard from "./Component/Dashboard2";
@@ -9,6 +9,10 @@ import { dummyData, queryDashboardDummyData } from "./Component/Service";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import QeryDashboard from "./Component/QueryDashboard";
+import Footer from "./Component/Footer";
+// import BillGenerator from "./Component/BillGenerator";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,6 +23,9 @@ const App = () => {
   const [editFormData, setEditFormData] = useState({});
   const [editQeryFormData, setEditQeryFormData] = useState({});
   const [formList, setFormList] = useState([]);
+  // const [selectedServices, setSelectedServices] = useState([]);
+  // const [numberOfPassengers, setNumberOfPassengers] = useState(1);
+
   const addForm = (form) => {
     const newForm = {
       id: uuidv4(),
@@ -40,7 +47,6 @@ const App = () => {
   };
 
   const handleUpdateForm = (updatedForm) => {
-    // Logic to update the form in your state or backend
     const newUpdatedForm = {
       id: updatedForm.id,
       groupName: updatedForm.groupName,
@@ -73,120 +79,101 @@ const App = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
   useEffect(() => {
     setFormList(forms);
   }, [forms]);
+
   const updateQueryFormHandler = (formDate) => {
-    const updateQueryFormData=formDate;
-    const filterQueryFormData=queryForms.filter((item)=>item.uid!==formDate.uid)
-    setQueryForms([...filterQueryFormData,updateQueryFormData])
+    const updateQueryFormData = formDate;
+    const filterQueryFormData = queryForms.filter(
+      (item) => item.uid !== formDate.uid
+    );
+    setQueryForms([...filterQueryFormData, updateQueryFormData]);
   };
 
   return (
     <BrowserRouter>
       <div className="app">
         {isLoggedIn && (
-          <button className="hamburger-menu" onClick={toggleSidebar}>
-            <img
-              src={"/home.png"}
-              alt="home"
-              style={{
-                padding: "0.5px",
-                width: "24px",
-                height: "24px",
-                backgroundColor: "red",
-              }}
-            />
+          <button className="hamburger-menu btn btn-light" onClick={toggleSidebar}>
+            <i className="bi bi-list"></i>
           </button>
         )}
 
         {isLoggedIn && isSidebarOpen && (
-          <div className="sidebar">
-            <ul>
+          <div className="sidebar bg-dark text-white">
+            <ul className="list-unstyled">
               <li>
                 <Link
                   to="/dashboard"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    textDecoration: "none",
-                  }}
+                  className="d-flex align-items-center text-white text-decoration-none"
                 >
                   <img
                     src={"/itineraydashboard.png"}
                     alt="dashboard"
-                    style={{ padding: "0.5px", width: "24px", height: "24px" }}
+                    className="me-2"
+                    style={{ width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontSize: "15px" }}>Itinerary Dashboard</span>
+                  <span>Itinerary Dashboard</span>
                 </Link>
               </li>
               <li>
                 <Link
                   to="/query-dashboard"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    textDecoration: "none",
-                  }}
+                  className="d-flex align-items-center text-white text-decoration-none"
                 >
                   <img
                     src={"/dashboard.png"}
                     alt="dashboard"
-                    style={{ padding: "0.5px", width: "24px", height: "24px" }}
+                    className="me-2"
+                    style={{ width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontSize: "15px" }}>Query Dashboard</span>
+                  <span>Query Dashboard</span>
                 </Link>
               </li>
               <li>
                 <Link
                   to="/tourform"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    textDecoration: "none",
-                  }}
+                  className="d-flex align-items-center text-white text-decoration-none"
                 >
                   <img
                     src={"/query.png"}
                     alt="query"
-                    style={{ padding: "0.5px", width: "24px", height: "24px" }}
+                    className="me-2"
+                    style={{ width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontSize: "15px" }}>Query Form</span>
+                  <span>Query Form</span>
                 </Link>
               </li>
               <li>
                 <Link
                   to="/form"
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    textDecoration: "none",
-                  }}
+                  className="d-flex align-items-center text-white text-decoration-none"
                 >
                   <img
                     src={"/form.png"}
-                    alt="flowsheet"
-                    style={{ padding: "0.5px", width: "24px", height: "24px" }}
+                    alt="form"
+                    className="me-2"
+                    style={{ width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontsize: "15px" }}>Itinerary Form</span>
+                  <span>Itinerary Form</span>
                 </Link>
               </li>
+              
               <li>
                 <Link
                   to="/login"
                   onClick={handleLogout}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    textDecoration: "none",
-                  }}
+                  className="d-flex align-items-center text-white text-decoration-none"
                 >
                   <img
                     src={"/logout.png"}
                     alt="logout"
-                    style={{ padding: "0.5px", width: "24px", height: "24px" }}
+                    className="me-2"
+                    style={{ width: "24px", height: "24px" }}
                   />
-                  <span style={{ fontsize: "15px" }}>Logout</span>
+                  <span>Logout</span>
                 </Link>
               </li>
             </ul>
@@ -216,7 +203,6 @@ const App = () => {
                     />
                   }
                 />
-                {/* /queryeditForm */}
                 <Route
                   path="/queryeditForm"
                   element={
@@ -241,17 +227,38 @@ const App = () => {
                 />
                 <Route
                   path="/tourform"
-                  element={<Tourform addClient={setQueryForms} queryForms={queryForms} />}
+                  element={
+                    <Tourform
+                      addClient={setQueryForms}
+                      queryForms={queryForms}
+                    />
+                  }
                 />
+                {/* <Route
+                  path="/bill-generator"
+                  element={
+                    <BillGenerator
+                      selectedServices={selectedServices}
+                      numberOfPassengers={numberOfPassengers}
+                    />
+                  }
+                /> */}
               </>
             ) : (
               <Route path="*" element={<Navigate to="/" />} />
             )}
           </Routes>
         </div>
+        <ConditionalFooter />
       </div>
     </BrowserRouter>
   );
 };
 
+const ConditionalFooter = () => {
+  const location = useLocation();
+  return location.pathname === "/" ? <Footer /> : null;
+};
+
 export default App;
+
