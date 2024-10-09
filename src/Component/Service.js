@@ -1,92 +1,595 @@
-export const servicesOption = [
-  "NRT/HND Airport Arrival Transfer",
-  " Arrival Flight Details: TBA",
-  "After disembarking, please follow the signs to the Immigration",
-  "After clearing immigration, collect your baggage & meet our representative",
-  "Transfer to City hotel - Tokyo/ Complete check in formalities",
-  "Dinner at local Indian restaurant",
-  "Transfer to Hotel",
-  "Overnight stay at hotel in Tokyo",
-  "Tokyo City Tour ~Asakusa (Sensoji), Nakamise, Tokyo Skytree, teamlab Borderless, Ginza shopping",
-  "Pick up from Hotel @0900 Hrs",
-  "Asakusa Kannon Temple (Sensoji ) - Tokyo's oldest and iconic temple",
-  " Nakamise Dori ",
-  "Tokyo Skytree - Climb up to the Tembo deck 350 m above ground and enjoy the spiralling skywalk 450 m high at the Tembo Galleria",
-  "Stop for Lunch [Sumo wrestling and interaction - Yokozuna Tonkatsu Restaurant]",
-  "Visit, teamLab Borderless: MORI Building DIGITAL ART MUSEUM",
-  " Ginza Six Shopping Market ",
-  " Dinner at local Indian restaurant",
-  "Return to Hotel and free time for own activities",
-  " Overnight stay at Hotel in Tokyo",
-  "Mt Fuji and Hakone Tour by coach ~ Osahino Hakkai, Ōwakudani, Hakone Ropeway, Hakone Ship",
-  "01 bag per person not exceeding 23 kgs. will be couriered to Kyoto hotel. Prepare a bag for overnight stay and keep all necessary medicines, prescription etc. in it",
-  "Pick up from hotel and Visit Oshino Hakkai Village @0900 Hrs",
-  "Oshino Hakkai (Springs of Mt. Fuji), a must-visit tourist spot (*weather permitting)",
-  "Ōwakudani - an active volcanic valley (**weather permitting)",
-  "Jigokudani - Famous for its black eggs, which are boiled in the sulphurous waters to give the egg shells a distinctive colour",
-  "Stop for Lunch at Japanese restaurant",
-  "Hakone Ropeway cable car and go sightseeing around the Ōwakudani Valley (weather permitting)",
-  "Hakone Pirate Ship - go cruising from Togendai Port to Moto Hakone Port along Ashinoko Lake (**weather permitting)",
-  "Return to Tokyo",
-  " Dinner at local Indian restaurant",
-  "Overnight stay at Hotel in Tokyo",
-  "Tokyo to Kyoto Shinkansen Train/ Kyoto Tour ~Kyoto Station, Kyoto Railway Museum, Nijō Castle",
-  " Check out and proceed to Tokyo station",
-  "Tokyo station to Kyoto station in Bullet Train - Shinkansen Nozomi/ Hikari/ Sakura",
-  "The travel between Tokyo to Kyoto takes about 2 hours and covers 513 kms",
-  "Reach Kyoto and Visit Garden of Fine Arts Kyoto",
-  "Shimogamo Hangi-cho, Sakyo-ku, Kyoto",
-  "Stop for Lunch at Indian restaurant",
-  "Experience Kimono wearing & Japanese Tea Ceremony ",
-  "Enjoy Gion Corner: Traditional Arts Performance ",
-  " Dinner at local Indian restaurant",
-  "Reach hotel, Collect your bags and complete check in formalities",
-  "Check in and free time for relaxation",
-  " Overnight stay at hotel in Kyoto",
-  "Kyoto Day Tour ~ Arashiyama, Kinkakuji, Imperial Palace, Tea Ceremony, Fushimi Inari Shrine",
-  "Pick up from Hotel @0900 Hrs",
-  "Miho Museum, Unique art museum in the mountains",
-  "Walk through the Bamboo grooves",
-  " Kinkaku-ji - Rokuon-ji is a Zen Buddhist temple, the “the Golden Pavilion”, Mirror Pond",
-  " Kyoto Imperial Palace - the former palace of the Emperor of Japan (Drive pass/ No stop**)",
-  "Stop for Lunch at Indian restaurant",
-  "Kiyomizu-dera, known as the 'Temple of the Pure Water Spring'",
-  "Dinner at local Indian restaurant",
-  "Overnight stay at Hotel in Kyoto",
-  "Nara Day Tour ~Tōdaiji Temple, Nara Deer Park, Kasuga Taisha shrine",
-  "After breakfast, check out and meet our representative",
-  "Proceed to Nara Tour (takes approx. 80 minutes to cover about 35 kms)",
-  " Visit Tōdai-ji Temple - the world's largest wooden structure; home to the Great Buddha, the largest bronze statue in the world",
-  " Nara Deer Park - renowned for its free-roaming deer and world famous temples",
-  "Stop for Lunch at Indian restaurant",
-  " Osaka Castle -  the most famous landmarks in Japan",
-  " Umeda Sky Building - Floating Garden Observatory",
-  "Dotonbori District (Shinsaibashi-Suji Shopping Street) - hotspot for tourists. Filled with towering neon signs, clubs, bars & restaurants",
-  "Click a picture with the iconic Glico Man, shot from under Ebisubashi bridge, a famous Osaka picture spot",
-  " Dinner  (**own arrangement)",
-  "Reach Osaka hotel, complete check in formalities",
-  "Overnight stay at Hotel in Osaka",
-  "1-Day Hiroshima and Miyajima Tour (Round-trip from Osaka) ~Miyajima, Peace memorial, Bomb Dome",
-  "Pick up from Hotel and transfer to Shin Osaka Station",
-  "Shin Osaka station to Hiroshima station in Bullet Train - Shinkansen",
-  "This super fast bullet train Journey takes less than 2 hours each way",
-  "Upon reaching Hiroshima, Stop for lunch at local Indian restaurant",
-  " After lunch, ferry transfer to Itsukushima Shrine",
-  "Itsukushima Shrine - best known for its 'floating' torii gate",
-  "See wild deer in Miyajima",
-  "Return to Hiroshima main Island, ferry transfer",
-  "Proceed to Hiroshima Peace Memorial Museum",
-  "Atomic Bomb Dome (Hiroshima Memorial Park)",
-  "Proceed to Hiroshima Station",
-  "Hiroshima station to Shin Osaka station Bullet train ",
-  "This super fast bullet train Journey takes less than 2 hours each way",
-  "Pick up from Shin Osaka Station and transfer to restaurant",
-  "Dinner at local Indian restaurant",
-  "Free time for own activities. Overnight stay at hotel in Osaka",
-  "Free time till check out or flight time",
-  " Osaka city hotel to KIX/ITM Airport private transfer",
-  "Departure Flight Details: TBA",
-];
+export const cityServiceMapping = {
+  'Tokyo': 
+      ['Tsukiji Outer Market(Fish) -Free',
+      'Akihabara -Free',
+      'Koishikawa Korakuen(Garden)',
+      'Hama Rikyu (Hamarikyu)(Garden) ',
+      'Imperial Palace East Gardens - Free',
+      //Tokyo Imperial Palace :	Closed
+      'Ginza Japan’s premier shopping district - Free',
+      'Nakamise Dori -Free' ,
+      'Sumo Museum - Free',
+      'Happoen Garden(Tea Ceremony)- Free' ,
+      'Rikugien Garden(Tea Ceremony) - Free',
+      'Hotel Chinzanso (Chinzanso Garden)(Tea Ceremony) -Free',
+      'Chidorigafuchi Boat Ride(Garden) - Free' ,
+      //North Tokyo
+      'Tokyo Skytree - Free' ,
+      'First observatory' ,
+      'Both observatories' ,
+      'Tokyo Solamachi' ,
+      'Sumida Aquarium' ,
+      'Asakusa Kannon Temple - Free' ,
+      'Sensoji Temple - Free',
+      'Rikugien Garden',
+      'Ueno Park Cheery Blossom(Garden) - Free',
+      'Koishikawa Botanical Garden',
+      //West Tokyo	
+      'Shibuya -Free	' ,
+       'Shinjuku	',
+       //  a. Shinjuku Skyscraper District - restaurants	
+      // b. Kabukicho - restaurants & bars	
+      // c. Golden Gai - night life	
+      'Tokyo Metropolitan Government Office -Free',
+      'Shinjuku Gyoen(Garden) ',
+      'Shinjuku Central Park(Garden) - Free',
+      'Meiji Shrine - Free',
+      'Harajuku - shopping - Free' ,
+      'Yoyogi Park(Garden) -Free',
+      'Metropolitan Government Building -Free',
+      'Nakano Broadway - shopping & anime -Free',
+      'Kagurazaka - shopping -Free'	,
+      'Daikanyama - Shibuya High neighborhood - Free',
+       //South Tokyo	
+      // Odaiba	
+      'Fuji TV Building'	,
+       "Decks Tokyo Beach	Free",
+      " Aquacity Odaiba	Free",
+       "DiverCity Tokyo Plaza (Gundam)	Free",
+       'Rainbow Bridge	Free',
+      ' Miraiken -  National Museum of Emerging Science & Innovation	',
+       'Small Worlds Tokyo	',
+       'Institute for Nature Study(Garden)',
+      'Roppongi - Multifaceted district in central Tokyo(Night Life) -Free'	,
+      'Roppongi Hills - shopping & entertainment(Fish) - Free' ,
+      'Toyosu Market - Free' ,
+      "Tokyo Tower 	Main Deck"	,
+      'Tokyo Tower Both Decks(Graveyard)'	,
+      'Sengakuji Temple -Free',
+      'Sengakuji Museum' 	,
+      'Zojoji Temple -Free' ,
+      'Kyu Shiba Rikyu Garden',
+        // Tokyo Water Bus	
+      // a. Asakusa-Odaiba Direct Line	1720
+      // b. Sumida River Line	1040
+      // c. Odaiba Line	520
+      // d. Mizube Cruise Line	1200
+      // Shinagawa	Free(Station)
+      'Maxell Aqua Park Shinagawa' ,
+      // Toyosu	3 - 7 K
+      // a. Lalaport Toyosu is one of the largest shopping malls in central Tokyo	
+      // b. Kidzania, an indoor theme park for children (aged 3-15) to play-act as different professionals like cooks or pilots.	
+      
+    ],
+
+  'Kobe':
+             ['Kobe Port Tower ',
+      'Kobe Earthquake Memorial Museum',
+      'Akashi Kaikyo Bridge(Longest) - Free ',
+      'Earthquake Memorial Museum',
+       'Shin-Kobe Ropeway - Free' ,
+      ' round trip and admission to herb garden ',
+      'one way and admission to herb garden ',
+       'Sorakuen Garden' ,
+       'Mount Rokko - Free' ,
+       'Kitano-cho' ,
+       'Sake Breweries- Free ' ,
+       'Akashi Kaikyo Bridge' ,
+       'Hyogo Prefectural Museum' ,
+       'Kobe City Museum' ,
+       'Meriken Park' ,
+       //a. Kobe Maritime Museum
+       //b. Kawasaki Good Times World
+      'Kobe Chinatown -Free' ,
+
+      //       Arima Onsen	
+      // The following is a list of some hot spring baths around Arima Onsen that are open to day trip visitors:	
+      'Kin no Yu	' ,
+      'Gin no Yu'	 ,
+      'Taiko no Yu',	
+      // Goshobo	
+       //Daytime Admission	1650
+      // b. Overnight Stay with 2 meals	25000 PP
+	
+	
+      'Kobe Harborland - Free	',
+      // The most prominent shopping complex in Kobe Harborland is Umie which consists of three parts: Mosaic, South Mall and North Mall.	
+     // Gaslight Street, is lit up in the evenings by old-fashioned gas street lamps and electric lights.	
+     // Renga Soko, a small collection of 19th-century brick warehouses which remain from a former dockyard that used to cover the waterfront. 	
+],
+
+   'Kamakura Yokohama':
+             [
+     ' Great Buddha of Kamakura',
+      'Hokokuji Temple(Zen)',
+      'Hase Temple (Hasedera)',
+     ' Enoshima - Pleasantly island near Kamakura	-Free',
+      // 'Enoshima Shrine'	,
+      //  'Samuel Cocking Garden and Sea Candle',
+      //  'Iwaya Caves'	,
+      // ' Enoshima Daishi	Free',
+      // ' Love Bell	',
+      'Enoshima Aquarium',
+        
+     ' Ryukoji Temple- Free	' ,
+      'Tsurugaoka Hachimangu Shrine',
+      'Engakuji Temple(Zen)' ,
+      'Kenchoji Temple(Zen)',
+      'Zeniarai Benten Shrine (- wash money) - Free',
+      
+      // Yokohama Japan’s second largest city	
+      'Sankeien Garden',
+      // Minato Mirai 21	
+      // 'Sky Garden Observatory'	
+      //  'Cosmo World(Themen Park)	: 0, attractions cost 300-900 yen each'
+      //  'Manyo Club(Spa)	: 2750 (many services require additional fees)'
+      //  'Yokohama Air Cabin(Cable Car)	: OW 1000 RT 1800'
+      "'Queen's Square(Shopping) -Free" ,
+      'Landmark Plaza(Shopping) - Free' ,
+      'World Porters(Shopping) - Free',
+        
+      'Nippon Maru and Yokohama Port Museum(Ship)	',
+      'Only Nippon Maru',
+     ' Yokohama Port Museum', 
+  ],
+        'Osaka': 
+   [
+     // 'Universal Studios Japan': 8400 - 9400,
+      // Express Passes allow holders to skip lines for selected rides and are available for four rides (between 6,800 and 18,800 yen depending on the rides and day) or seven rides (between 10,800 and 23,800 yen depending on the rides and day) online in advance or on the day at the entrance gate and inside the park. Express Passes may sell out on busy days.
+      // Note that there is a limit on how many people can visit the popular Super Nintendo World each day. Guaranteed access is possible by purchasing in advance an Express Pass (see above) or travel package that includes entry to the Super Nintendo World. Otherwise, it is possible to get a "numbered ticket" at the park on the day of your vist via the official app or at a ticket office. On busy days when the limit of visitors is exceeded, it is possible to apply for a "admission lottery ticket" instead.
+
+      'Minami (Namba)(Shopping) -Free' ,
+      'Osaka Aquarium Kaiyukan',
+      'Sumiyoshi Taisha - Free',
+      'Osaka Castle (Osakajo)' ,
+      //Shitennoji Temple: 300 Garden ,500 treasure house
+      'Kita (Umeda) - Free' ,
+      'Abeno Harukas(Skyscraper )' ,
+      'Umeda Sky Building(Skyscraper) - The 173 meter tall building consists of two towers that are connected with each other by the (Floating Garden Observatory) on the 39th floor.',
+      'Asahi Beer Suita Brewery' ,
+      'Tempozan Ferry' ,
+      'Tonbori River Cruise' ,
+      'Grand Front Osaka(Shooping) - Free' ,
+      // 'Osaka Aqua Liner' : 55 minutes 1700 RT 850 OW
+      //Between March 28th and April 15th there is a higher spring fare of 2,000 yen for adults and 1,000 yen for children.
+      'Minoo Park (Park) - Free'  ,
+],
+    'Kyoto':
+    [
+        //Central Kyoto	
+        'Nijo Castle (Nijojo)(UNESCO)',
+        'Kyoto Railway Museum',
+        'Nishiki Market(Food) - Free',
+        'Sento Imperial Palace(Palace Garden) -Free' ,
+        'Kyoto Imperial Palace - Free' ,
+        'Pontocho - riverside dining - Free',
+        'Honganji Temples - Free' ,	
+        'Kyoto Aquarium',
+        'Kyoto Tower',
+  
+        //Eastern Kyoto	
+        // Kiyomizudera Temple	400
+        // Higashiyama District	Free
+        // a. Kiyomizudera Temple	400
+        // b. Kodaiji Temple	600
+        // c. Yasaka Pagoda	500
+        // d. Yasaka Shrine	Free
+        // e. Maruyama Park (Cheery blossom)	Free
+          
+        'Ginkakuji (Silver Pavilion)',
+        'Sanjusangendo',
+        //Nanzenji Temple(Zen)	
+        // a. Sanmon Gate	600
+        // b. Hojo	600
+        // c. Nanzenin	400
+        // d. Konchi-in Temple	400
+        // e. Tenjuan Temple	600
+          
+        'Kyoto National Museum',
+        'Gion - Hanami-koji & Shirakawa Area -Free',
+        'Gion Corner (T ceremony + dance)(Giesha)',
+        'Kenninji Temple(Oldest Zen)',
+        'Philosopher’s Path(Cherry Bloossom)	',
+        'Kodaiji Temple(Rock Garden)',
+        'Heian Shrine(Cherry + Torry Gate) -Free',
+        'Maruyama Park(Cherry Bloossom)- Free',
+  
+        // Southern Kyoto	
+        'Fushimi Inari Shrine -Free',
+        // Daigoji Temple	
+        // a. Sanboin & Shimo Daigo	1000
+        // b. Sanboin only	500
+        // c. Reihokan Museum	500
+        // d. Reihokan Garden	Free
+        // e. Kami Daigo	600,
+          
+        // Tofukuji Temple(Red Yellow)	
+        // a. Tsutenkyo Bridge and Kaisando Hall	600
+        // b. Hojo and gardens	500
+        // Both	1000
+          
+        'Toji Temple - Pagoda',
+        'Fushimi Sake breweries',
+  
+        //North Kyoto	
+        'Kinkakuji (Golden Pavilion)',
+        'Shugakuin Imperial Villa(Garden) - Free',
+        'Ninnaji Temple',
+        'Ryoanji Temple(Zen Rock)',
+        'Daitokuji Temple',
+  
+        // Western Kyoto	
+        // 'Arashiyama and Sagano	'
+        // .' Togetsukyo Bridge	'
+        //  'Bamboo Groves	'
+        //  'Okochi Sanso Villa'	1000
+        // ' Monkey Park Iwatayama'	550
+        //  'Saga-Toriimoto Preserved Street	'
+        //  'Tenryuji Temple	500+300'
+        // ' Daikakuji Temple	600'
+        //  'Jojakkoji Temple	500'
+        //  'Nisonin Temple	500'
+        //  'Gioji Temple	600'
+        // ' Adashino Nenbutsuji Temple	500'
+        //  'Otagi Nenbutsuji Temple	300',
+          
+        'Sagano Scenic Railway'	,
+          
+        'Kokedera (Moss Temple)',
+        'Katsura Imperial Villa(Garden)',
+       ' Yoshiminedera Temple',
+        'Daikakuji Temple'	,
+        'Tenryuji Temple(Zen)',
+        'Hozugawa River Cruise',
+        'Sagano Scenic Railway(Train)',
+        //880 yen one way between Torokko Saga and Torokko Kameoka stations	
+       'Suntory Yamazaki Distillery',  
+],
+   'Nara' :
+    [
+      'Todaiji Temple',
+      'Nara Park (Deer)- Free' ,
+      'Kasuga Taisha Shrine - Free' ,
+      'Kasuga Taisha Botanical Park',
+      'Horyuji Temple',
+      'Isuien Garden',
+      'Toshodaiji Temple' ,
+      'Yakushiji Temple',
+      'Nara National Museum',
+      'Heijo Palace - Free' ,
+      'Mount Wakakusayama',
+      'Ikoma Sanjo Amusement Park - Free' ,
+      // .a. Kintetsu Ikoma Cable Car :360
+      // b. Hozanji Temple : 290
+      // c. c. Shigisan Chogosonshi-ji (tiger temple) : 300
+], 
+   'Hiroshima' :
+   [
+     'Peace Memorial Park ' ,
+      'Peace Memorial Museum' ,
+      'Mazda Museum - Free' ,
+      'Shukkeien Garden' ,
+      'Downtown Hiroshima -Free' ,
+      // 'Hiroshima Castle ' : 0 - 300,
+      // 'Miyajima	'
+      'Itsukushima Shrine' ,
+      'Mount Misen -Free' ,
+      // 'Miyajima Ropeway @ Misen' : '1000 OW 2000RT'
+      'Daisho-in Temple @ the foot of Mt Misen -Free' ,
+      'Senjokaku Hall' ,
+      'Museum of History',
+      'Miyajima Aquarium' ,
+ ], 
+    'Nagoya' :
+    [ 
+     'Railway Museum' ,
+      'Nagashima Resort(Theme Park)',
+      'Nagoya Castle',
+      'Korankei',
+      'Legoland' ,
+      'Ghibli Park',
+]
+ 
+};
+
+export const servicePriceMapping = {
+
+  //Tokyo
+  'Tsukiji Outer Market(Fish)': 0,
+      'Akihabara': 0,
+      'Koishikawa Korakuen(Garden)': 300,
+      'Hama Rikyu (Hamarikyu)(Garden) ': 300,
+      'Imperial Palace East Gardens': 0,
+      //Tokyo Imperial Palace :	Closed
+      'Ginza Japan’s premier shopping district': 0,
+      'Nakamise Dori' : 0,
+      'Sumo Museum' : 0,
+      'Happoen Garden(Tea Ceremony)' : 0,
+      'Rikugien Garden(Tea Ceremony)': 0,
+      'Hotel Chinzanso (Chinzanso Garden)(Tea Ceremony)': 0,
+      'Chidorigafuchi Boat Ride(Garden)' : 0,
+      //North Tokyo
+      'Tokyo Skytree' : 0,
+      'First observatory' : 2300,
+      'Both observatories' : 3400,
+      'Tokyo Solamachi' : 1500,
+      'Sumida Aquarium' : 2300,
+      'Asakusa Kannon Temple' : 0,
+      'Sensoji Temple' : 0,
+      'Rikugien Garden' : 300,
+      'Ueno Park Cheery Blossom(Garden)' : 0,
+      'Koishikawa Botanical Garden' : 500,
+      //West Tokyo	
+      'Shibuya	' : 0,
+       'Shinjuku	' : 0,
+       //  a. Shinjuku Skyscraper District - restaurants	
+      // b. Kabukicho - restaurants & bars	
+      // c. Golden Gai - night life	
+      'Tokyo Metropolitan Government Office'	: 0,
+      'Shinjuku Gyoen(Garden)'	:500,
+      'Shinjuku Central Park(Garden)':	0,
+      'Meiji Shrine': 0,
+      'Harajuku - shopping' :	0,
+      'Yoyogi Park(Garden)': 0,
+      'Metropolitan Government Building'	: 0,
+      'Nakano Broadway - shopping & anime' :	0,
+      'Kagurazaka - shopping'	: 0,
+      'Daikanyama - Shibuya High neighborhood': 0,
+       //South Tokyo	
+      // Odaiba	
+      ' Fuji TV Building'	:700,
+      ' Decks Tokyo Beach	Free' : 0,
+      ' Aquacity Odaiba	Free': 0,
+      'DiverCity Tokyo Plaza (Gundam)	Free': 0,
+      'Rainbow Bridge	Free': 0,
+       'Miraiken -  National Museum of Emerging Science & Innovation': 630,
+      'Small Worlds Tokyo':	2700,
+      'Institute for Nature Study(Garden)':	320,
+      'Roppongi - Multifaceted district in central Tokyo(Night Life)'	: 0,
+      'Roppongi Hills - shopping & entertainment(Fish)' : 0,
+      'Toyosu Market' : 0,
+      "Tokyo Tower 	Main Deck"	: 1200,
+      'Tokyo Tower Both Decks(Graveyard)'	:3000,
+      'Sengakuji Temple':	0,
+      'Sengakuji Museum' :	500,
+      'Zojoji Temple' :	0,
+      'Kyu Shiba Rikyu Garden'	: 150,
+        // Tokyo Water Bus	
+      //  'Asakusa-Odaiba Direct Line':	1720,
+      //  'Sumida River Line':	1040,
+      //  'Odaiba Line':	520
+      // . 'Mizube Cruise Line':	1200
+      // Shinagawa	Free(Station)
+      'Maxell Aqua Park Shinagawa' 	: 2300,
+      // Toyosu	3 - 7 K
+      // a. Lalaport Toyosu is one of the largest shopping malls in central Tokyo	
+      // b. Kidzania, an indoor theme park for children (aged 3-15) to play-act as different professionals like cooks or pilots.	
+      
+
+      // kobe
+      'Kobe Port Tower ': 700,
+      'Kobe Earthquake Memorial Museum': 600,
+      'Akashi Kaikyo Bridge(Longest) ': 0,
+      'Earthquake Memorial Museum': 600,
+      'Shin-Kobe Ropeway' : 0,
+      //a. round trip and admission to herb garden : 1500
+      //b. b. one way and admission to herb garden : 950
+       'Sorakuen Garden' : 300,
+       'Mount Rokko' : 0,
+       'Kitano-cho' : 650 -3000,
+       'Sake Breweries ' : 0,
+       'Akashi Kaikyo Bridge' : 300,
+       'Hyogo Prefectural Museum' : 500,
+       'Kobe City Museum' : 300,
+       'Meriken Park' : 900,
+       //a. Kobe Maritime Museum
+       //b. Kawasaki Good Times World
+      'Kobe Chinatown ' : 0,
+
+      //       Arima Onsen	
+      // The following is a list of some hot spring baths around Arima Onsen that are open to day trip visitors:	
+      'Kin no Yu	' : 650,
+      'Gin no Yu'	: 550,
+      'Taiko no Yu'	: 2600,
+      // Goshobo	
+      // a. Daytime Admission	1650
+      // b. Overnight Stay with 2 meals	25000 PP
+	
+	
+      'Kobe Harborland	' : 0,
+      // The most prominent shopping complex in Kobe Harborland is Umie which consists of three parts: Mosaic, South Mall and North Mall.	
+     // Gaslight Street, is lit up in the evenings by old-fashioned gas street lamps and electric lights.	
+     // Renga Soko, a small collection of 19th-century brick warehouses which remain from a former dockyard that used to cover the waterfront. 	
+     
+     
+     //Kamakura Yakohama
+     ' Great Buddha of Kamakura'	:300,
+     'Hokokuji Temple(Zen)':	300,
+     'Hase Temple (Hasedera)': 400,
+    ' Enoshima - Pleasantly island near Kamakura	' : 0,
+     // a. Enoshima Shrine	200
+     // b. Samuel Cocking Garden and Sea Candle	500
+     // c. Iwaya Caves	500
+     // d. Enoshima Daishi	Free
+     // e. Love Bell	
+     'Enoshima Aquarium': 2500,
+    ' Ryukoji Temple	' :0,
+     'Tsurugaoka Hachimangu Shrine': 200,
+     'Engakuji Temple(Zen)' :	500,
+     'Kenchoji Temple(Zen)': 500,
+     'Zeniarai Benten Shrine (- wash money)':	0,
+      // Yokohama Japan’s second largest city	
+     'Sankeien Garden'	:700,
+     // Minato Mirai 21	
+     // a. Sky Garden Observatory	1000
+     // b. Cosmo World(Themen Park)	: 0, attractions cost 300-900 yen each
+     // c. Manyo Club(Spa)	: 2750 (many services require additional fees)
+     // d. Yokohama Air Cabin(Cable Car)	: OW 1000 RT 1800
+     "'Queen's Square(Shopping)" : 0,
+    'Landmark Plaza(Shopping)' : 0,
+    'World Porters(Shopping)':	0,
+    'Nippon Maru and Yokohama Port Museum(Ship)	': 800,
+    'Only Nippon Maru':	400,
+    'Yokohama Port Museum'	:500,
+
+
+    //Osaka
+    // 'Universal Studios Japan': 8400 - 9400,
+      // Express Passes allow holders to skip lines for selected rides and are available for four rides (between 6,800 and 18,800 yen depending on the rides and day) or seven rides (between 10,800 and 23,800 yen depending on the rides and day) online in advance or on the day at the entrance gate and inside the park. Express Passes may sell out on busy days.
+      // Note that there is a limit on how many people can visit the popular Super Nintendo World each day. Guaranteed access is possible by purchasing in advance an Express Pass (see above) or travel package that includes entry to the Super Nintendo World. Otherwise, it is possible to get a "numbered ticket" at the park on the day of your vist via the official app or at a ticket office. On busy days when the limit of visitors is exceeded, it is possible to apply for a "admission lottery ticket" instead.
+     'Minami (Namba)(Shopping)': 0,
+      'Osaka Aquarium Kaiyukan': 2400,
+      'Sumiyoshi Taisha': 0,
+      'Osaka Castle (Osakajo)' : 600,
+      //Shitennoji Temple: 300 Garden ,500 treasure house
+      'Kita (Umeda)' : 0,
+      'Abeno Harukas(Skyscraper )' : 1500,
+      'Umeda Sky Building(Skyscraper) - The 173 meter tall building consists of two towers that are connected with each other by the (Floating Garden Observatory) on the 39th floor.': 1500,
+      'Asahi Beer Suita Brewery' : 1000,
+      'Tempozan Ferry' : 800,
+      'Tonbori River Cruise' : 1200,
+      'Grand Front Osaka(Shooping)' : 0,
+      // 'Osaka Aqua Liner' : 55 minutes 1700 RT 850 OW
+      //Between March 28th and April 15th there is a higher spring fare of 2,000 yen for adults and 1,000 yen for children.
+      'Minoo Park (Park)' :0,
+
+
+      //Kyoto
+        //Central Kyoto	
+        'Nijo Castle (Nijojo)(UNESCO)':	800,
+        'Kyoto Railway Museum':	1500,
+        'Nishiki Market(Food)' : 0,
+        'Sento Imperial Palace(Palace Garden)' : 0,
+        'Kyoto Imperial Palace' : 0,
+        'Pontocho - riverside dining': 0,
+        'Honganji Temples' : 0,	
+        'Kyoto Aquarium':	2200,
+        'Kyoto Tower':	800,
+        //Eastern Kyoto	
+        // Kiyomizudera Temple	400
+        // Higashiyama District	Free
+        // a. Kiyomizudera Temple	400
+        // b. Kodaiji Temple	600
+        // c. Yasaka Pagoda	500
+        // d. Yasaka Shrine	Free
+        // e. Maruyama Park (Cheery blossom)	Free
+       'Ginkakuji (Silver Pavilion)':	500,
+        'Sanjusangendo':	600,
+        //Nanzenji Temple(Zen)	
+        // a. Sanmon Gate	600
+        // b. Hojo	600
+        // c. Nanzenin	400
+        // d. Konchi-in Temple	400
+        // e. Tenjuan Temple	600
+       'Kyoto National Museum': 700,
+        'Gion - Hanami-koji & Shirakawa Area ': 0,
+        'Gion Corner (T ceremony + dance)(Giesha)':	5500,
+        'Kenninji Temple(Oldest Zen)':	600,
+        'Philosopher’s Path(Cherry Bloossom)	': '',
+        'Kodaiji Temple(Rock Garden)':	900,
+        'Heian Shrine(Cherry + Torry Gate)': 0,
+        'Maruyama Park(Cherry Bloossom)': 0,
+      // Southern Kyoto	
+        'Fushimi Inari Shrine': 0,
+        // Daigoji Temple	
+        // a. Sanboin & Shimo Daigo	1000
+        // b. Sanboin only	500
+        // c. Reihokan Museum	500
+        // d. Reihokan Garden	Free
+        // e. Kami Daigo	600,
+        // Tofukuji Temple(Red Yellow)	
+        // a. Tsutenkyo Bridge and Kaisando Hall	600
+        // b. Hojo and gardens	500
+        // Both	1000
+        'Toji Temple - Pagoda':	800,
+        'Fushimi Sake breweries':	600,
+        //North Kyoto	
+        'Kinkakuji (Golden Pavilion)':	500,
+        'Shugakuin Imperial Villa(Garden)':	0,
+        'Ninnaji Temple':	800,
+        'Ryoanji Temple(Zen Rock)':	500,
+        'Daitokuji Temple':	400,
+        // Western Kyoto	
+        // Arashiyama and Sagano	
+        // a. Togetsukyo Bridge	
+        // b. Bamboo Groves	
+        // c. Okochi Sanso Villa	1000
+        // d. Monkey Park Iwatayama	550
+        // e. Saga-Toriimoto Preserved Street	
+        // f. Tenryuji Temple	500+300
+        // g. Daikakuji Temple	600
+        // h. Jojakkoji Temple	500
+        // i. Nisonin Temple	500
+        // j. Gioji Temple	600
+        // k. Adashino Nenbutsuji Temple	500
+        // l. Otagi Nenbutsuji Temple	300,
+        'Sagano Scenic Railway'	:900,
+        'Kokedera (Moss Temple)':	4000,
+        'Katsura Imperial Villa(Garden)':	1000,
+       ' Yoshiminedera Temple':	500,
+        'Daikakuji Temple':	500+300,
+        'Tenryuji Temple(Zen)':	500+300,
+        'Hozugawa River Cruise': 4100,
+        'Sagano Scenic Railway(Train)': 880,
+        //880 yen one way between Torokko Saga and Torokko Kameoka stations	
+        'Suntory Yamazaki Distillery':	1000,  
+
+        //Nara
+        'Todaiji Temple' : 600,
+        'Nara Park (Deer)' : 0,
+        'Kasuga Taisha Shrine' : 0,
+        'Kasuga Taisha Botanical Park' :500,
+        'Horyuji Temple': 1500,
+        'Isuien Garden' : 1200,
+        'Toshodaiji Temple' : 1000,
+        'Yakushiji Temple' : 1100,
+        'Nara National Museum' : 700,
+        'Heijo Palace' : 0,
+        'Mount Wakakusayama' : 150,
+        'Ikoma Sanjo Amusement Park' : 0,
+        // .a. Kintetsu Ikoma Cable Car :360
+        // b. Hozanji Temple : 290
+        // c. c. Shigisan Chogosonshi-ji (tiger temple) : 300
+
+
+       //HiroShima
+      'Peace Memorial Park ' : 200,
+      'Peace Memorial Museum' : 200,
+      'Mazda Museum' : 0,
+      'Shukkeien Garden' : 260,
+      'Downtown Hiroshima' : 0,
+      // 'Hiroshima Castle ' : 0 - 300,
+      // 'Miyajima	'
+      'Itsukushima Shrine' : 300,
+      'Mount Misen' : 0,
+      // 'Miyajima Ropeway @ Misen' : '1000 OW 2000RT'
+      'Daisho-in Temple @ the foot of Mt Misen' : 0,
+      'Senjokaku Hall' : 100,
+      'Museum of History' : 300,
+      'Miyajima Aquarium' : 1420,
+        
+
+      //Nagoya
+      'Railway Museum' : 1000,
+      'Nagashima Resort(Theme Park)' : 6800,
+      'Nagoya Castle' : 500,
+      'Korankei' : 300,
+      'Legoland' : 7400,
+      'Ghibli Park' : 3500,
+};
+  
+
+
 
 export const Inclusions = [
   "Hotel Accommodation with Breakfast as mentioned or similar",
@@ -232,10 +735,11 @@ export const queryDashboardDummyData = [
     address: "House no 16/A, Armay Colony",
     mobile: "1234567897",
     email: "asdfghjkl@gmail.com",
-    status: "Open",
-    duration: "10",
+    status: "Confirmed",
+    duration: "5",
     queryDate: "2024-07-10",
     tourStartDate: "2024-07-19",
+    tourEndDate: "2024-07-13",
     uid: "02_PP19Jul24",
     agentHandling: "Raj Kumar ",
   },
@@ -250,9 +754,10 @@ export const queryDashboardDummyData = [
     mobile: "2345678912",
     email: "qwertyuiop@gmail.com",
     status: "Open",
-    duration: "10",
+    duration: "8",
     queryDate: "2024-07-10",
     tourStartDate: "2024-07-19",
+    tourEndDate: "2024-07-11",
     uid: "02_PP19Jul25",
     agentHandling: "Arjun kumar ",
   },

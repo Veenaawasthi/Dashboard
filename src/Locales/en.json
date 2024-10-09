@@ -1,0 +1,38 @@
+{
+    "id": "ID",
+    "logo": "Logo",
+    "name": "Name",
+    "groupName": "Group Name",
+    "totalPax": "Total Pax",
+    "tourDate": "Tour Date",
+    "flight": "Flight",
+    "service": "Service",
+    "clientName": "Client Name",
+    "dateOfQtn": "Date of Quotation",
+    "agent": "Agent",
+    "validity": "Validity",
+    "itinerary": "Itinerary",
+    "inclusions": "Inclusions",
+    "exclusions": "Exclusions",
+    "terms": "Terms",
+    "day": "Day",
+    "date": "Date",
+    "city": "City",
+    "time": "Time",
+    "mode": "Mode",
+    "meal": "Meal",
+    "duration": "Duration",
+    "price": "Price",
+    "availableServices": "Available Services",
+    "dates": "Dates",
+    "nights": "Nights",
+    "hotel": "Hotel",
+    "slab": "Slab",
+    "maxPax": "Max Pax",
+    "minPax": "Min Pax",
+    "noOfFOC": "Number of FOC",
+    "ppCost": "Per Person Cost"
+  }
+  
+  
+  
