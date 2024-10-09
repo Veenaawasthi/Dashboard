@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "./Tourform.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import Cookies from 'js-cookie';
 
 const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryForms }) => {
-  const navigator = useNavigate();
+  const navigate = useNavigate();
+  const [users, setUsers] = useState([]);
 
   const [formData, setFormData] = useState({
     adult: "",
@@ -27,13 +30,10 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
   // Function to calculate duration in days
   const calculateDuration = (startDate, endDate) => {
     if (!startDate || !endDate) return 0;
-
     const start = new Date(startDate);
     const end = new Date(endDate);
-
     const diffTime = Math.abs(end - start);
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
     return diffDays;
   };
 
@@ -51,37 +51,31 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const uid = generateTravelString(
-      formData.adult,
-      formData.name,
-      formData.tourStartDate
-    );
+    const uid = generateTravelString(formData.adult, formData.name, formData.tourStartDate);
     const updatedFormData = { ...formData, uid };
-    console.log("first", updatedFormData);
-
+  
+    const csrfToken = Cookies.get('csrftoken');
+  
     try {
-      // Simulating adding client to state
-      addClient([...queryForms, updatedFormData]); // Assuming addClient is provided via props
+      const response = await axios.post('http://127.0.0.1:8000/query/', updatedFormData, {
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrfToken,
+        },
+      });
+      console.log("Data submitted successfully", response.data);
+      addClient([...queryForms, updatedFormData]);
       alert("Form submitted successfully");
       handleReset();
-      navigator('/query-dashboard');
+      navigate('/query-dashboard');
     } catch (error) {
       console.error("Error submitting form", error);
       alert(`Failed to submit the form: ${error.message}`);
     }
   };
+  
 
-  const handleUpdate = () => {
-    try {
-      updateQueryFormHandler(formData);
-      alert("Form submitted successfully");
-      handleReset();
-      navigator('/query-dashboard');
-    } catch (error) {
-      console.error("Error submitting form", error);
-      alert(`Failed to submit the form: ${error.message}`);
-    }
-  };
+
 
   const handleReset = () => {
     setFormData({
@@ -103,6 +97,48 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
       agentHandling: "",
     });
   };
+
+  useEffect(() => {
+    axios.get('http://127.0.0.1:8000/query/')
+      .then(response => {
+        setUsers(response.data.users);
+      })
+      .catch(error => {
+        console.error("Error loading data: ", error);
+      });
+  }, []);  
+
+  async function handleUpdate(event) {
+    event.preventDefault();
+    try {
+      await axios.post('http://127.0.0.1:8000/query/', {   
+        adult: formData.adult,
+        child: formData.child,
+        infant: formData.infant,
+        company: formData.company,
+        name: formData.name,
+        city: formData.city,
+        address: formData.address,
+        mobile: formData.mobile,
+        email: formData.email,
+        status: formData.status,
+        duration: formData.duration,
+        queryDate: formData.queryDate,
+        tourStartDate: formData.tourStartDate,
+        tourEndDate: formData.tourEndDate,
+        uid: formData.uid,
+        agentHandling: formData.agentHandling,
+      });
+      alert("Form updated successfully");
+      handleReset();
+      navigate('/query-dashboard');
+    } catch (error) {
+      console.error("Error updating form:", error);
+      alert(`Failed to update the form: ${error.message}`);
+    }
+}
+
+  
 
   useEffect(() => {
     if (editQeryFormData) {
@@ -129,12 +165,12 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
   return (
     <form
       className="form"
-      onSubmit={editQeryFormData ? handleUpdate : handleSubmit}
+      // onSubmit={editQeryFormData ? handleUpdate : handleSubmit}
     >
       <h1 className="form-h1"> * Query Form *</h1>
       <div className="form-group">
         <label htmlFor="pax">Pax:</label>
-        <div className="div-pax" >
+        <div className="div pax input group " >
           <label htmlFor="adult">Adult(12+):</label>
           <input
             type="number"
@@ -314,7 +350,7 @@ const Tourform = ({ addClient, editQeryFormData, updateQueryFormHandler, queryFo
             Update
           </button>
         ) : (
-          <button type="submit" className="submit">
+          <button type="submit"  onClick = {handleSubmit} className="submit">
             Submit
           </button>
         )}

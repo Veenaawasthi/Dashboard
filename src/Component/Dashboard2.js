@@ -1,45 +1,100 @@
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import "./Dashboard2.css";
 import { useNavigate } from "react-router-dom";
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import { format } from 'date-fns';
 
-const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
+const Dashboard = ({ setItineraryData, setEditFormData }) => {
   const [searchName, setSearchName] = useState("");
   const [searchFileCode, setSearchFileCode] = useState("");
   const [formList, setFormList] = useState([]);
+  const [filteredForms, setFilteredForms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [formsPerPage] = useState(8); // Show 8 forms per page
   const navigate = useNavigate();
 
-  // Function to handle editing a form
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const response = await axios.get('http://127.0.0.1:8000/itineraries/');
+        setFormList(response.data);
+        setFilteredForms(response.data);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const filtered = formList.filter((form) => {
+      const clientName = form.client_name || "";
+      const fileCode = form.file_code || "";
+      return (
+        clientName.toLowerCase().includes(searchName.toLowerCase()) &&
+        fileCode.toLowerCase().includes(searchFileCode.toLowerCase())
+      );
+    });
+    setFilteredForms(filtered);
+  }, [formList, searchFileCode, searchName]);
+
+  // Handle page change
+  const handlePageChange = (pageNumber) => setCurrentPage(pageNumber);
+
+  // Get current forms for pagination
+  const indexOfLastForm = currentPage * formsPerPage;
+  const indexOfFirstForm = indexOfLastForm - formsPerPage;
+  const currentForms = filteredForms.slice(indexOfFirstForm, indexOfLastForm);
+
   const handleEdit = (form) => {
-    setEditFormData(form);
+    const editFormData = {
+      ...form,
+      days: form.days || [],
+      hotels: form.hotels || [],
+      quotationSlabs: form.quotationSlabs || [],
+    };
+    setEditFormData(editFormData);
     navigate("/editForm");
   };
 
-  // Filter forms based on search inputs
-  useEffect(() => {
-    const filteredForms = forms.filter((form) =>
-      form.clientName.toLowerCase().includes(searchName.toLowerCase()) &&
-      form.fileCode.toLowerCase().includes(searchFileCode.toLowerCase())
-    );
-    setFormList(filteredForms);
-  }, [forms, searchFileCode, searchName]);
-
   const handleView = (form) => {
-    setItineraryData(form);
+    const viewFormData = {
+      ...form,
+      hotels: form.hotels || [],
+      quotationSlabs: form.quotationSlabs || [],
+    };
+    setItineraryData(viewFormData);
     navigate("/view");
   };
+
+  if (loading) {
+    return <div className="loading-spinner"></div>;
+  }
+
+  // Logic to create pagination buttons
+  const totalPages = Math.ceil(filteredForms.length / formsPerPage);
+  const pageNumbers = [];
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
 
   return (
     <div className="dashboard">
       <h1 className="dashboard-title">Itinerary Dashboard</h1>
       <div className="search-bar">
-        <label style={{ textAlign: 'center' }}>Search by Name</label>
+        <label>Search by Name</label>
         <input
           type="text"
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
         />
-        <label style={{ textAlign: 'center' }}>Search by File Code</label>
+        <label>Search by File Code</label>
         <input
           type="text"
           value={searchFileCode}
@@ -47,9 +102,9 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
         />
       </div>
       <div className="total-itineraries">
-        <p>Total Itineraries: {forms.length}</p>
+        <p>Total Itineraries: {filteredForms.length}</p>
       </div>
-      {formList.length === 0 ? (
+      {currentForms.length === 0 ? (
         <p>No forms submitted yet.</p>
       ) : (
         <table>
@@ -65,14 +120,14 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
             </tr>
           </thead>
           <tbody>
-            {formList.map((form, index) => (
+            {currentForms.map((form, index) => (
               <tr key={index}>
-                <td>{form.fileCode}</td>
-                <td>{form.clientName}</td>
-                <td>{form.groupName}</td>
-                <td>{form.totalPax}</td>
-                <td>{form.tourDate}</td>
-                <td>{form.flight}</td>
+                <td>{form.file_code || ""}</td>
+                <td>{form.client_name || ""}</td>
+                <td>{form.group_name || ""}</td>
+                <td>{form.total_pax !== null ? form.total_pax : ""}</td>
+                <td>{form.tour_date ? format(new Date(form.tour_date), 'MM/dd/yyyy') : ""}</td>
+                <td>{form.flight || ""}</td>
                 <td>
                   <button onClick={() => handleView(form)}>
                     <i className="bi bi-eye"></i> View Form Details
@@ -86,9 +141,21 @@ const Dashboard = ({ forms, setItineraryData, setEditFormData }) => {
           </tbody>
         </table>
       )}
+
+      {/* Pagination Controls */}
+      <div className="pagination">
+        {pageNumbers.map((number) => (
+          <button
+            key={number}
+            className={`page-button ${number === currentPage ? "active" : ""}`}
+            onClick={() => handlePageChange(number)}
+          >
+            {number}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
 
 export default Dashboard;
-

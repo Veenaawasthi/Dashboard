@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./FormView.css";
 import {
   tourConditionData,
@@ -6,15 +6,27 @@ import {
   Exclusion,
   Inclusions,
 } from "./Service";
+import { useTranslation } from "react-i18next"; 
 import html2pdf from "html2pdf.js";
 
-export const FormView = ({ itineraryData }) => {
+export const FormView = ({ itineraryData = {} }) => {
+  const { t, i18n } = useTranslation(); // Get translation function and i18n instance
+  const [services, setServices] = useState(itineraryData.days || []);
+  const [hotels, setHotels] = useState(itineraryData.hotels || []);
+  const [quotationSlab, setQuotationSlab] = useState(itineraryData.quotation_slabs || []);
+
+  useEffect(() => {
+    setServices(itineraryData.days || []);
+    setHotels(itineraryData.hotels || []);
+    setQuotationSlab(itineraryData.quotation_slabs || []);
+  }, [itineraryData]);
+
   const handlePrintPdf = () => {
     const element = document.getElementById("printSection");
 
     const options = {
       margin: 0.5,
-      filename: "itinerary.pdf",
+      filename: `itinerary_${i18n.language}.pdf`,
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: { scale: 2 },
       jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
@@ -22,6 +34,7 @@ export const FormView = ({ itineraryData }) => {
 
     html2pdf().set(options).from(element).save();
   };
+
   const getIconClass = (service) => {
     switch (service) {
       case 'City':
@@ -55,162 +68,228 @@ export const FormView = ({ itineraryData }) => {
     }
   };
 
+
   return (
-    <div className="formViewContainar" id="printSection">
-      <button onClick={handlePrintPdf} className="btn btn-primary mb-3">
-        <i className="fas fa-print"></i> Print to PDF
+    <div className="formViewContainer" id="printSection">
+    <div className="language-switcher">
+      <label>
+        <input
+          type="radio"
+          value="en"
+          checked={i18n.language === "en"}
+          onChange={() => i18n.changeLanguage("en")}
+        />
+        English
+      </label>
+      <label>
+        <input
+          type="radio"
+          value="jp"
+          checked={i18n.language === "jp"}
+          onChange={() => i18n.changeLanguage("jp")}
+        />
+         Japanese
+      </label>
+    </div>
+
+      <button onClick={handlePrintPdf} className="btn btn-primary mb-3 download-button">
+        <i className="fas fa-print"></i> {t("printPdf")}
       </button>
+
       <header className="header">
         <img src={"/Logo RD.jpg"} alt="Rising Destination" className="logo" />
         <h1>Experiential Japan Package</h1>
-        <h2>{itineraryData.validity}</h2>
+        <h2>{itineraryData.validity || 'N/A'}</h2>
       </header>
+
       <table className="table table-bordered">
         <tbody>
           <tr>
-            <td><i className={getIconClass('File Code')}></i> File Code</td>
-            <td>{itineraryData.fileCode}</td>
-            <td><i className={getIconClass('Agent')}></i> Agent</td>
-            <td colSpan="3">{itineraryData.agent}</td>
+            <td><i className={getIconClass('File Code')}></i> {t("fileCode")}</td>
+            <td>{itineraryData.file_code || 'N/A'}</td>
+            <td><i className={getIconClass('Agent')}></i> {t("agent")}</td>
+            <td colSpan="3">{itineraryData.agent || 'N/A'}</td>
           </tr>
           <tr>
-            <td><i className={getIconClass('Group Name')}></i> Group Name</td>
-            <td>{itineraryData.groupName}</td>
-            <td><i className={getIconClass('Client Name')}></i> Client Name</td>
-            <td>{itineraryData.clientName}</td>
+            <td><i className={getIconClass('Group Name')}></i> {t("groupName")}</td>
+            <td>{itineraryData.group_name || 'N/A'}</td>
+            <td><i className={getIconClass('Client Name')}></i> {t("clientName")}</td>
+            <td>{itineraryData.client_name || 'N/A'}</td>
           </tr>
           <tr>
-            <td><i className={getIconClass('Total Pax')}></i> Total Pax</td>
-            <td>{itineraryData.totalPax}</td>
-            <td><i className={getIconClass('Tour Date')}></i> Tour Date</td>
-            <td>{itineraryData.tourDate}</td>
+            <td><i className={getIconClass('Total Pax')}></i>{t("totalPax")}</td>
+            <td>{itineraryData.total_pax || 'N/A'}</td>
+            <td><i className={getIconClass('Tour Date')}></i> {t("tourDate")}</td>
+            <td>{itineraryData.tour_date || 'N/A'}</td>
           </tr>
           <tr>
-            <td><i className="fas fa-plane-departure ml-1"></i> Flight</td>
-            <td>{itineraryData.flight}</td>
-            <td><i className={getIconClass('Date of QTN')}></i> Date of QTN</td>
-            <td>{itineraryData.dateOfQtn}</td>
+            <td><i className="fas fa-plane-departure ml-1"></i> {t("flight")}</td>
+            <td>{itineraryData.flight || 'N/A'}</td>
+            <td><i className={getIconClass('Date of QTN')}></i>{t("dateOfQtn")}</td>
+            <td>{itineraryData.date_of_qtn || 'N/A'}</td>
           </tr>
           <tr>
-            <td><i className={getIconClass('Itinerary')}></i> Itinerary</td>
-            <td colSpan="3">{itineraryData.itinerary}</td>
+            <td><i className={getIconClass('Itinerary')}></i>{t("itinerary")}</td>
+            <td colSpan="3">{itineraryData.itinerary || 'N/A'}</td>
           </tr>
           <tr>
-            <td><i className={getIconClass('Validity')}></i> Validity</td>
-            <td colSpan="3">{itineraryData.validity}</td>
+            <td><i className={getIconClass('Validity')}></i> {t("validity")}</td>
+            <td colSpan="3">{itineraryData.validity || 'N/A'}</td>
           </tr>
         </tbody>
       </table>
+
       <h3>
-        <i className="fas fa-route"></i> Itinerary Details
-      </h3>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            
-            <th> Day</th>
-            <th> Date</th>
-            <th> City</th>
-            <th> Time</th>
-            <th> Service</th>
-            <th>Duration</th>
-            <th>Mode</th>
-            <th> Meal</th>
-          </tr>
-        </thead>
-        <tbody>
-          {itineraryData.services.map((service, index) => (
-            <tr key={index}>
-              
-              <td>{service.day && <i className="fas fa-calendar-day icon-small"></i>} {service.day}</td>
-              <td>{service.date && <i className="fas fa-calendar-alt icon-small"></i>} {service.date}</td>
-              <td>{service.city && <i className={getIconClass('City') + ' icon-small'}></i>} {service.city}</td>
-              <td>{service.time && <i className={getIconClass('Time') + ' icon-small'}></i>} {service.time}</td>
-              <td>{service.service && <i className={getIconClass('Service') + ' icon-small'}></i>} {service.service}</td>
-              <td>{service.duration && <i className="fas fa-hourglass-half icon-small"></i>} {service.duration}</td>
-              <td>{service.mode && <i className={getIconClass('Mode') + ' icon-small'}></i>} {service.mode}</td>
-              <td>{service.meal && <i className="fas fa-utensils icon-small"></i>} {service.meal}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+  <i className="fas fa-route"></i> {t("itineraryDetails")}
+</h3>
+<table className="table table-bordered">
+  <thead>
+    <tr>
+      <th>{t("day")}</th>
+      <th>{t("date")}</th>
+      <th>{t("cities")}</th>
+      <th>{t("time")}</th>
+      <th>{t("service")}</th>
+      <th>{t("duration")}</th>
+      <th>{t("mode")}</th>
+      <th>{t("meal")}</th>
+    </tr>
+  </thead>
+  <tbody>
+    {services.map((service, index) => (
+      <tr key={index}>
+        <td>
+          <i className={getIconClass('Day')}></i> {t(service.day) || t('N/A')}
+        </td>
+        <td>
+          <i className={getIconClass('Tour Date')}></i> {t(new Date(service.date).toLocaleDateString('ja-JP')) || t('N/A')}
+        </td>
+        <td>
+          <i className={getIconClass('City')}></i> {t(service.city) || t('N/A')}
+        </td>
+        <td>
+          <i className={getIconClass('Time')}></i> {t(service.time) || t('N/A')}
+        </td>
+        <td>
+          <i className={getIconClass('Service')}></i> {t(service.service) || t('N/A')}
+        </td>
+        <td>
+          <i className={getIconClass('Duration')}></i> {t(service.duration) || t('N/A')}
+        </td>
+        <td>
+          <i className={getIconClass('Mode')}></i> {t(service.mode) || t('N/A')}
+        </td>
+        <td>
+          <i className={getIconClass('Meal')}></i> {t(service.meal) || t('N/A')}
+        </td>
+      </tr>
+    ))}
+  </tbody>
+</table>
+
+
+
+
       <h3><i className="fas fa-hotel"></i> Hotels Envisaged</h3>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th><i className="fas fa-city"></i> City</th>
-            <th><i className="fas fa-calendar-alt"></i> Dates</th>
-            <th><i className="fas fa-bed"></i> Nights</th>
-            <th><i className="fas fa-hotel"></i> Hotels</th>
-          </tr>
-        </thead>
-        <tbody>
-          {itineraryData.hotels.map((hotel, index) => (
-            <tr key={index}>
-              <td>{hotel.city}</td>
-              <td>{hotel.dates}</td>
-              <td>{hotel.nights}</td>
-              <td>{hotel.hotel}</td>
+      {hotels.length > 0 ? (
+        <table className="table table-bordered">
+          <thead>
+            <tr>
+              <th><i className="fas fa-city"></i> {t("cities")}</th>
+              <th><i className="fas fa-calendar-alt"></i>{t("dates")}</th>
+              <th><i className="fas fa-bed"></i> {t("nights")}</th>
+              <th><i className="fas fa-hotel"></i>{t("hotel")}</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <h3>Quotation Slab</h3>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th><i className="fas fa-sliders-h"></i> Slab</th>
-            <th><i className="fas fa-user-friends"></i> Minimum Pax</th>
-            <th><i className="fas fa-user-friends"></i> Maximum Pax</th>
-            <th><i className="fas fa-user"></i> No. of FOC</th>
-            <th><i className="fas fa-dollar-sign"></i> PP Cost</th>
-          </tr>
-        </thead>
-        <tbody>
-          {itineraryData.quotationSlab.map((slab, index) => (
-            <tr key={index}>
-              <td>{slab.slab}</td>
-              <td>{slab.minPax}</td>
-              <td>{slab.maxPax}</td>
-              <td>{slab.noOfFOC}</td>
-              <td>{slab.ppCost}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {hotels.map((hotel, index) => (
+              <tr key={index}>
+                <td>{hotel.city || 'N/A'}</td>
+                <td>{hotel.dates || 'N/A'}</td>
+                <td>{hotel.nights || 'N/A'}</td>
+                <td>{hotel.hotel || 'N/A'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No hotel details available.</p>
+      )}
+
+<h3>"Quotation Slab"</h3>
+{quotationSlab.length > 0 ? (
+  <table className="table table-bordered">
+    <thead>
+      <tr>
+        <th><i className="fas fa-sliders-h"></i> {t("slab")}</th>
+        <th><i className="fas fa-user-friends"></i> {t("maxPax")}</th>
+        <th><i className="fas fa-user-friends"></i> {t("minPax")}</th>
+        <th><i className="fas fa-user"></i> {t("noOfFOC")}</th>
+        <th><i className="fas fa-dollar-sign"></i> {t("ppCost")}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {quotationSlab.map((slab, index) => (
+        <tr key={index}>
+          <td>{t(slab.slab) || t('N/A')}</td>
+          <td>{t(slab.min_pax) || t('N/A')}</td>
+          <td>{t(slab.max_pax) || t('N/A')}</td>
+          <td>{t(slab.no_of_foc) || t('N/A')}</td>
+          <td>{t(slab.pp_cost) || t('N/A')}</td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+) : (
+  <p>{t("noQuotationSlabDetailsAvailable")}</p>
+)}
+
+
       <h3>INCLUSION</h3>
-      {Inclusions.map((item, i) => (
-        <p key={i}><i className="fas fa-check"></i> {item}</p>
-      ))}
+      {Inclusions.length > 0 ? (
+        Inclusions.map((item, i) => (
+          <p key={i}><i className="fas fa-check"></i> {item}</p>
+        ))
+      ) : (
+        <p>No inclusions available.</p>
+      )}
+
       <h3>EXCLUSION</h3>
-      {Exclusion.map((item, i) => (
-        <p key={i}><i className="fas fa-times"></i> {item}</p>
-      ))}
-       <h3>TOUR CONDITION</h3>
+      {Exclusion.length > 0 ? (
+        Exclusion.map((item, i) => (
+          <p key={i}><i className="fas fa-times"></i> {item}</p>
+        ))
+      ) : (
+        <p>No exclusions available.</p>
+      )}
+      <h3>TOUR CONDITIONS</h3>
       <table className="table table-bordered">
         <thead>
           <tr>
-            <th>
-              <i className="fas fa-info-circle"></i> Condition
-            </th>
-            <th>
-              <i className="fas fa-info-circle"></i> Detail
-            </th>
+            <th>Condition</th>
+            <th>Details</th>
           </tr>
         </thead>
         <tbody>
-          {tourConditionData.map((item, index) => (
+          {tourConditionData.map((condition, index) => (
             <tr key={index}>
-              <td>{item.condition}</td>
-              <td>{item.detail}</td>
+              <td>{condition.condition || 'N/A'}</td>
+              <td>{condition.detail || 'N/A'}</td>
             </tr>
           ))}
         </tbody>
       </table>
-      <h3>JAPAN STATES TRANSPORTATION AGENCY DRIVER WORKING HOURS REGULATION</h3>
-      {TransportaionRules.map((item, i) => (
-        <p key={i}><i className="fas fa-clock"></i> {item}</p>
-      ))}
+
+      <h3>Transportation Rules</h3>
+      {TransportaionRules.length > 0 ? (
+        TransportaionRules.map((rule, i) => (
+          <p key={i}><i className="fas fa-info-circle"></i> {rule}</p>
+        ))
+      ) : (
+        <p>No transportation rules available.</p>
+      )}
     </div>
   );
 };
+
+

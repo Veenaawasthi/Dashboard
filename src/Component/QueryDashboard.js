@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from "react";
+import axios from "axios"; 
+import { useState, useEffect } from "react";
 import "./Dashboard2.css";
 import { useNavigate } from "react-router-dom";
-import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons
+import 'bootstrap-icons/font/bootstrap-icons.css'; 
 
-const QueryDashboard = ({ forms, setEditQeryFormData }) => {
+const QueryDashboard = ({ setEditQeryFormData }) => {
   const [searchUID, setSearchUID] = useState("");
   const [queryFormList, setQueryFormList] = useState([]);
+  const [queries, setQueries] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1); // Track the current page
+  const queriesPerPage = 8; // Queries per page
   const navigate = useNavigate();
 
   const handleEdit = (form) => {
@@ -13,16 +17,30 @@ const QueryDashboard = ({ forms, setEditQeryFormData }) => {
     navigate("/queryeditForm");
   };
 
+  const fetchQueries = async () => {
+    try {
+      const response = await axios.get("http://127.0.0.1:8000/query/");
+      setQueries(response.data); 
+      setQueryFormList(response.data); 
+    } catch (error) {
+      console.error("Error fetching queries:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchQueries();
+  }, []); 
+
   useEffect(() => {
     if (searchUID.length) {
-      const filteredForms = forms.filter((form) =>
+      const filteredForms = queries.filter((form) =>
         form.uid.toLowerCase().includes(searchUID.toLowerCase())
       );
       setQueryFormList(filteredForms);
     } else {
-      setQueryFormList(forms);
+      setQueryFormList(queries);
     }
-  }, [forms, searchUID]);
+  }, [queries, searchUID]); 
 
   const getStatusColorClass = (status) => {
     switch (status) {
@@ -41,6 +59,28 @@ const QueryDashboard = ({ forms, setEditQeryFormData }) => {
     }
   };
 
+  // Pagination logic
+  const totalPages = Math.ceil(queryFormList.length / queriesPerPage);
+  const indexOfLastQuery = currentPage * queriesPerPage;
+  const indexOfFirstQuery = indexOfLastQuery - queriesPerPage;
+  const currentQueries = queryFormList.slice(indexOfFirstQuery, indexOfLastQuery);
+
+  const handleNextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
+  const handlePageClick = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+
   return (
     <div className="dashboard">
       <h1 className="dashboard-title">Query Dashboard</h1>
@@ -54,9 +94,9 @@ const QueryDashboard = ({ forms, setEditQeryFormData }) => {
         />
       </div>
       <div className="total-queries">
-        <p>Total Queries: {forms.length}</p>
+        <p>Total Queries: {queries.length}</p>
       </div>
-      {queryFormList?.length === 0 ? (
+      {currentQueries.length === 0 ? (
         <p>No forms submitted yet.</p>
       ) : (
         <table className="queries-table">
@@ -74,7 +114,7 @@ const QueryDashboard = ({ forms, setEditQeryFormData }) => {
             </tr>
           </thead>
           <tbody>
-            {queryFormList?.map((form, index) => (
+            {currentQueries.map((form, index) => (
               <tr key={index}>
                 <td>{form.uid}</td>
                 <td>{form.name}</td>
@@ -98,11 +138,28 @@ const QueryDashboard = ({ forms, setEditQeryFormData }) => {
           </tbody>
         </table>
       )}
+
+      {/* Pagination controls */}
+      <div className="pagination">
+        <button onClick={handlePreviousPage} disabled={currentPage === 1}>
+          Previous
+        </button>
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageClick(index + 1)}
+            className={currentPage === index + 1 ? "active" : ""}
+          >
+            {index + 1}
+          </button>
+        ))}
+        <button onClick={handleNextPage} disabled={currentPage === totalPages}>
+          Next
+        </button>
+      </div>
     </div>
   );
 };
 
 export default QueryDashboard;
-
-
 

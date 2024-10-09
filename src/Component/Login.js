@@ -2,89 +2,81 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { TextField, Button, Container, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-
-
+import Cookies from 'js-cookie';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    marginTop: '64px', // 8 * 8px (adjust as needed)
+    marginTop: '64px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
-
   formContainer: {
-    backgroundColor: 'lightyellow', // Semi-transparent background for the form
+    backgroundColor: 'lightyellow',
     padding: '20px',
     borderRadius: '8px',
     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
   },
-
   form: {
-    width: '100%', // Fix the width of the form
-    marginTop: '8px', // 1 * 8px
+    width: '100%',
+    marginTop: '8px',
   },
   submitButton: {
-    margin: '24px 0 16px', // 3 * 8px 0 2 * 8px
-    padding: '12px', // Add padding to the button
-    
+    margin: '24px 0 16px',
+    padding: '12px',
   },
   title: {
-    marginBottom: '16px', // Margin below the title
-    fontWeight: 'bold', // Make the title bold
-    color: 'darkgreen', // Darker color for the title
+    marginBottom: '16px',
+    fontWeight: 'bold',
+    color: 'darkgreen',
     display: 'flex',
     alignItems: 'center',
     gap: '8px',
   },
   textField: {
-    marginBottom: '16px', // Margin below each text field
+    marginBottom: '16px',
   },
 }));
 
-const mockUsers = [
-  { id: 1, email: 'admin@example.com', password: 'password123' },
-  { id: 2, email: 'veenaawasthi23@gmail.com', password: '123456' },
-  { id: 3, email: 'vivektiwari@risingdestination.com', password: '123456' }
-  // Add more users as needed
-];
-
 const Login = ({ onLogin }) => {
   const classes = useStyles();
-  const [email, setEmail] = useState('');
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
-  const handleLogin = (event) => {
-    event.preventDefault(); 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-
-    const trimmedEmail = email.trim();
-    const trimmedPassword = password.trim();
-
-  
-    if (!trimmedEmail.includes('@')) {
-      alert('Invalid email format');
+    if (!username || !password) {
+      setErrorMessage('Username and password are required');
       return;
     }
 
-    // Validate password contains only numeric digits
-    if (!/^\d+$/.test(trimmedPassword)) {
-      alert('Password must contain only numeric digits');
-      return;
-    }
+    try {
+      const response = await fetch('http://127.0.0.1:8000/login/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ username, password }),
+      });
 
-    // Check against the mock database
-    const user = mockUsers.find(
-      (user) => user.email === trimmedEmail && user.password === trimmedPassword
-    );
-
-    if (user) {
-      alert('Successfully logged in!');
-      onLogin(true); // Notify parent component (App.js) of successful login
-      navigate('/dashboard'); // Navigate to home page or desired route
-    } else {
-      alert('Invalid credentials');
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('access_token', data.access);
+        localStorage.setItem('refresh_token', data.refresh);
+        Cookies.set('jwt', data.access, { path: '/' });
+        localStorage.setItem('role', data.role); // Save user role
+        onLogin(true);
+        navigate('/dashboard');
+      } else {
+        const errorData = await response.json();
+        const errorMessage = errorData.non_field_errors || 'Invalid credentials';
+        setErrorMessage(errorMessage);
+      }
+    } catch (error) {
+      setErrorMessage('Error logging in: ' + error.message);
     }
   };
 
@@ -92,24 +84,28 @@ const Login = ({ onLogin }) => {
     <Container component="main" maxWidth="xs" className={classes.container}>
       <div className={classes.formContainer}>
         <Typography component="h1" variant="h5" className={classes.title}>
-          <img src="/login.png" alt="login" style={{ width: "40px", height: "45px" }} />
+          <img src="/login.png" alt="login" style={{ width: '40px', height: '45px' }} />
           Login
         </Typography>
-        <form className={classes.form} onSubmit={handleLogin}>
+        {errorMessage && (
+          <Typography variant="body2" color="error" align="center">
+            {errorMessage}
+          </Typography>
+        )}
+        <form className={classes.form} onSubmit={handleSubmit}>
           <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
+            autoComplete="username"
             autoFocus
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className={classes.textField}
-            color='success'
           />
           <TextField
             variant="outlined"
@@ -124,7 +120,6 @@ const Login = ({ onLogin }) => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className={classes.textField}
-            color='success'
           />
           <Button
             type="submit"
@@ -142,3 +137,5 @@ const Login = ({ onLogin }) => {
 };
 
 export default Login;
+
+
